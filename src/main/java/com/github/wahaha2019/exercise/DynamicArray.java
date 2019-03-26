@@ -14,8 +14,8 @@ public class DynamicArray<E> {
   protected int size;
   protected Object[] data;
 
-  static DynamicArray newIntSerial(int size) {
-    DynamicArray array = new DynamicArray<String>(size);
+  static DynamicArray<Integer> newIntSerial(int size) {
+    DynamicArray<Integer> array = new DynamicArray<>(size);
     fillIntSerial(size, array);
     return array;
   }
@@ -186,6 +186,8 @@ public class DynamicArray<E> {
     DynamicArray other = (DynamicArray) obj;
     if (this.size != other.size) {
       return false;
+    } else if (this.size == 0 && other.size == 0) {
+      return true;
     }
     for (int i = 0; i < size; i++) {
       if (this.data[i] == null) {

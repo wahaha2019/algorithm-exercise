@@ -54,7 +54,7 @@ public class DynamicArrayTest {
   @Test
   public void set() {
     int capacity = 256;
-    DynamicArray array = new DynamicArray<String>(capacity);
+    DynamicArray<String> array = new DynamicArray<>(capacity);
     assertThrows(IndexOutOfBoundsException.class, () -> {
       array.set(0, "0");
     });
@@ -70,7 +70,7 @@ public class DynamicArrayTest {
   @Test
   public void insert() {
     int capacity = 3;
-    DynamicArray array = new DynamicArray<String>(capacity);
+    DynamicArray<String> array = new DynamicArray<>(capacity);
     array.setSize(1);
     array.set(0, "1");
     array.insert(0, "0");
