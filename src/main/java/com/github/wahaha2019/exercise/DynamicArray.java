@@ -97,6 +97,11 @@ public class DynamicArray<E> {
     size --;
   }
 
+  public void append(E ele) {
+    setSize(size + 1);
+    data[size - 1] = ele;
+  }
+
   private void checkIndex(int i) {
     if (i >= size || i < 0) {
       throw new ArrayIndexOutOfBoundsException();

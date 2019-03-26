@@ -109,6 +109,18 @@ public class DynamicArrayTest {
     assertEquals(array.getSize(), 2);
   }
 
+  @Test
+  public void testAppend() {
+    int capacity = 3;
+    DynamicArray array = getDynamicArray(capacity);
+    array.append("3");
+    assertEquals(array.get(0), "0");
+    assertEquals(array.get(1), "1");
+    assertEquals(array.get(2), "2");
+    assertEquals(array.get(3), "3");
+    assertEquals(array.getSize(), 4);
+  }
+
   private DynamicArray getDynamicArray(int capacity) {
     DynamicArray array = new DynamicArray<String>(capacity);
     array.setSize(3);
