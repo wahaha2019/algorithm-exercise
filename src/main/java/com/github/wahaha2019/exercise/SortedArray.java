@@ -1,6 +1,6 @@
 package com.github.wahaha2019.exercise;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * SortedArray is not thread safe. element can not be null.
@@ -51,7 +51,7 @@ public class SortedArray<E extends Comparable> extends DynamicArray<E> {
     return result;
   }
 
-  public void insert(@Nonnull E ele) {
+  public void insert(@NotNull E ele) {
     if (size == 0) {
       super.append(ele);
       return;
@@ -71,7 +71,7 @@ public class SortedArray<E extends Comparable> extends DynamicArray<E> {
   }
 
   @Override
-  public void append(@Nonnull E ele) {
+  public void append(@NotNull E ele) {
     if (size == 0 || ele.compareTo(data[size - 1]) >= 0) {
       super.append(ele);
     } else {
