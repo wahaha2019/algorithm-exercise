@@ -89,4 +89,33 @@ public class DynamicArrayTest {
     assertEquals(array.getSize(), 4);
   }
 
+  @Test
+  public void testDelete() {
+    int capacity = 3;
+    DynamicArray array = getDynamicArray(capacity);
+    array.delete(0);
+    assertEquals(array.get(0), "1");
+    assertEquals(array.get(1), "2");
+    assertEquals(array.getSize(), 2);
+    array = getDynamicArray(capacity);
+    array.delete(1);
+    assertEquals(array.get(0), "0");
+    assertEquals(array.get(1), "2");
+    assertEquals(array.getSize(), 2);
+    array = getDynamicArray(capacity);
+    array.delete(2);
+    assertEquals(array.get(0), "0");
+    assertEquals(array.get(1), "1");
+    assertEquals(array.getSize(), 2);
+  }
+
+  private DynamicArray getDynamicArray(int capacity) {
+    DynamicArray array = new DynamicArray<String>(capacity);
+    array.setSize(3);
+    array.set(0, "0");
+    array.set(1, "1");
+    array.set(2, "2");
+    return array;
+  }
+
 }

@@ -67,7 +67,6 @@ public class DynamicArray<E> {
   }
 
   public void insert(int i, E ele) {
-    checkIndex(i);
     if (size + 1 <= getCapacity()) {
       for (int j = i; j < size; j++) {
         data[j + 1] = data[j];
@@ -87,6 +86,15 @@ public class DynamicArray<E> {
       data = newData;
     }
     size++;
+  }
+
+  public void delete(int i) {
+    checkIndex(i);
+    for (int j = i; j < size - 1; j++) {
+      data[j] = data[j+1];
+    }
+    data[size - 1] = null;
+    size --;
   }
 
   private void checkIndex(int i) {
