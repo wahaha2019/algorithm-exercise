@@ -165,7 +165,7 @@ public class DynamicArrayTest {
   }
 
   @Test
-  public void testEquals() {
+  public void equals() {
     DynamicArray array1 = newIntSerial(3);
     DynamicArray array2 = newIntSerial(5);
     assertNotEquals(array1, array2);
@@ -174,7 +174,7 @@ public class DynamicArrayTest {
   }
 
   @Test
-  public void testHash() {
+  public void hash() {
     DynamicArray array1 = newIntSerial(3);
     DynamicArray array2 = newIntSerial(5);
     array2.setSize(3);
