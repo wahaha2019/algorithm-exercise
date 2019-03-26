@@ -9,83 +9,84 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DynamicArrayTest {
 
-    @Test
-    public void testCreation() {
-        int capacity = 256;
-        DynamicArray array = new DynamicArray(capacity);
-        assertTrue(array.isEmpty());
-        assertEquals(array.getSize(), 0);
-        assertEquals(array.getCapacity(), capacity);
-        int size = 128;
-        array.setSize(size);
-        assertFalse(array.isEmpty());
-        assertEquals(array.getSize(), size);
-        assertEquals(array.getCapacity(), capacity);
-        size = 4096;
-        array.setSize(size);
-        assertTrue(array.isFull());
-        assertFalse(array.isEmpty());
-        assertEquals(array.getSize(), size);
-        assertEquals(array.getCapacity(), size);
-    }
+  @Test
+  public void testCreation() {
+    int capacity = 256;
+    DynamicArray array = new DynamicArray(capacity);
+    assertTrue(array.isEmpty());
+    assertEquals(array.getSize(), 0);
+    assertEquals(array.getCapacity(), capacity);
+    int size = 128;
+    array.setSize(size);
+    assertFalse(array.isEmpty());
+    assertEquals(array.getSize(), size);
+    assertEquals(array.getCapacity(), capacity);
+    size = 4096;
+    array.setSize(size);
+    assertTrue(array.isFull());
+    assertFalse(array.isEmpty());
+    assertEquals(array.getSize(), size);
+    assertEquals(array.getCapacity(), size);
+  }
 
-    @Test public void testClear() {
-        int capacity = 256;
-        DynamicArray array = new DynamicArray(capacity);
-        int size = 128;
-        array.setSize(size);
-        array.clear();
-        assertTrue(array.isEmpty());
-        assertEquals(array.getSize(), 0);
-        assertEquals(array.getCapacity(), capacity);
-    }
+  @Test
+  public void testClear() {
+    int capacity = 256;
+    DynamicArray array = new DynamicArray(capacity);
+    int size = 128;
+    array.setSize(size);
+    array.clear();
+    assertTrue(array.isEmpty());
+    assertEquals(array.getSize(), 0);
+    assertEquals(array.getCapacity(), capacity);
+  }
 
-    @Test
-    public void testGet() {
-        int capacity = 256;
-        DynamicArray array = new DynamicArray(capacity);
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            Object ele = array.get(0);
-        });
-    }
+  @Test
+  public void testGet() {
+    int capacity = 256;
+    DynamicArray array = new DynamicArray(capacity);
+    assertThrows(IndexOutOfBoundsException.class, () -> {
+      Object ele = array.get(0);
+    });
+  }
 
-    @Test
-    public void testSet() {
-        int capacity = 256;
-        DynamicArray array = new DynamicArray<String>(capacity);
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            array.set(0, "0");
-        });
-        array.setSize(1);
-        array.set(0, "0");
-        assertEquals(array.get(0), "0");
-        array.setSize(2);
-        assertNull(array.get(1));
-        array.set(1, "1");
-        assertEquals(array.get(1), "1");
-    }
+  @Test
+  public void testSet() {
+    int capacity = 256;
+    DynamicArray array = new DynamicArray<String>(capacity);
+    assertThrows(IndexOutOfBoundsException.class, () -> {
+      array.set(0, "0");
+    });
+    array.setSize(1);
+    array.set(0, "0");
+    assertEquals(array.get(0), "0");
+    array.setSize(2);
+    assertNull(array.get(1));
+    array.set(1, "1");
+    assertEquals(array.get(1), "1");
+  }
 
-    @Test
-    public void testInsert() {
-        int capacity = 3;
-        DynamicArray array = new DynamicArray<String>(capacity);
-        array.setSize(1);
-        array.set(0, "1");
-        array.insert(0, "0");
-        assertEquals(array.get(0), "0");
-        assertEquals(array.get(1), "1");
-        assertEquals(array.getSize(), 2);
-        array.insert(1, "b");
-        assertEquals(array.get(0), "0");
-        assertEquals(array.get(1), "b");
-        assertEquals(array.get(2), "1");
-        assertEquals(array.getSize(), 3);
-        array.insert(2, "B");
-        assertEquals(array.get(0), "0");
-        assertEquals(array.get(1), "b");
-        assertEquals(array.get(2), "B");
-        assertEquals(array.get(3), "1");
-        assertEquals(array.getSize(), 4);
-    }
+  @Test
+  public void testInsert() {
+    int capacity = 3;
+    DynamicArray array = new DynamicArray<String>(capacity);
+    array.setSize(1);
+    array.set(0, "1");
+    array.insert(0, "0");
+    assertEquals(array.get(0), "0");
+    assertEquals(array.get(1), "1");
+    assertEquals(array.getSize(), 2);
+    array.insert(1, "b");
+    assertEquals(array.get(0), "0");
+    assertEquals(array.get(1), "b");
+    assertEquals(array.get(2), "1");
+    assertEquals(array.getSize(), 3);
+    array.insert(2, "B");
+    assertEquals(array.get(0), "0");
+    assertEquals(array.get(1), "b");
+    assertEquals(array.get(2), "B");
+    assertEquals(array.get(3), "1");
+    assertEquals(array.getSize(), 4);
+  }
 
 }
