@@ -91,42 +91,76 @@ public class DynamicArrayTest {
 
   @Test
   public void testDelete() {
-    int capacity = 3;
-    DynamicArray array = getDynamicArray(capacity);
+    DynamicArray array = getArrayOfIntSerial(3);
     array.delete(0);
-    assertEquals(array.get(0), "1");
-    assertEquals(array.get(1), "2");
+    assertEquals(array.get(0), 1);
+    assertEquals(array.get(1), 2);
     assertEquals(array.getSize(), 2);
-    array = getDynamicArray(capacity);
+    array = getArrayOfIntSerial(3);
     array.delete(1);
-    assertEquals(array.get(0), "0");
-    assertEquals(array.get(1), "2");
+    assertEquals(array.get(0), 0);
+    assertEquals(array.get(1), 2);
     assertEquals(array.getSize(), 2);
-    array = getDynamicArray(capacity);
+    array = getArrayOfIntSerial(3);
     array.delete(2);
-    assertEquals(array.get(0), "0");
-    assertEquals(array.get(1), "1");
+    assertEquals(array.get(0), 0);
+    assertEquals(array.get(1), 1);
     assertEquals(array.getSize(), 2);
   }
 
   @Test
   public void testAppend() {
-    int capacity = 3;
-    DynamicArray array = getDynamicArray(capacity);
-    array.append("3");
-    assertEquals(array.get(0), "0");
-    assertEquals(array.get(1), "1");
-    assertEquals(array.get(2), "2");
-    assertEquals(array.get(3), "3");
+    DynamicArray array = getArrayOfIntSerial(3);
+    array.append(3);
+    assertEquals(array.get(0), 0);
+    assertEquals(array.get(1), 1);
+    assertEquals(array.get(2), 2);
+    assertEquals(array.get(3), 3);
     assertEquals(array.getSize(), 4);
   }
 
-  private DynamicArray getDynamicArray(int capacity) {
-    DynamicArray array = new DynamicArray<String>(capacity);
-    array.setSize(3);
-    array.set(0, "0");
-    array.set(1, "1");
-    array.set(2, "2");
+  @Test
+  public void testDeleteToTop() {
+    DynamicArray array = getArrayOfIntSerial(3);
+    array.deleteToTop(1);
+    assertEquals(array.get(0), 2);
+    assertEquals(array.getSize(), 1);
+    array = getArrayOfIntSerial(3);
+    array.deleteToTop(0);
+    assertEquals(array.get(0), 1);
+    assertEquals(array.get(1), 2);
+    assertEquals(array.getSize(), 2);
+    array = getArrayOfIntSerial(5);
+    array.deleteToTop(2);
+    assertEquals(array.get(0), 3);
+    assertEquals(array.get(1), 4);
+    assertEquals(array.getSize(), 2);
+    array = getArrayOfIntSerial(5);
+    array.deleteToTop(3);
+    assertEquals(array.get(0), 4);
+    assertEquals(array.getSize(), 1);
+    array = getArrayOfIntSerial(5);
+    array.deleteToTop(4);
+    assertTrue(array.isEmpty());
+  }
+
+  @Test
+  public void testDeleteToEnd() {
+    DynamicArray array = getArrayOfIntSerial(3);
+    array.deleteToEnd(1);
+    assertEquals(array.get(0), 0);
+    assertEquals(array.getSize(), 1);
+    array = getArrayOfIntSerial(5);
+    array.deleteToEnd(0);
+    assertTrue(array.isEmpty());
+  }
+
+  private DynamicArray getArrayOfIntSerial(int size) {
+    DynamicArray array = new DynamicArray<String>(size);
+    array.setSize(size);
+    for (int i = 0; i < size; i++) {
+      array.set(i, i);
+    }
     return array;
   }
 

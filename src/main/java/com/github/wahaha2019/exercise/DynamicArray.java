@@ -102,9 +102,30 @@ public class DynamicArray<E> {
     data[size - 1] = ele;
   }
 
+  public void deleteToTop(int i) {
+    checkIndex(i);
+    int diff = i + 1;
+    int limit = size - diff;
+    for (int j = 0; j < limit; j++) {
+      data[j] = data[j + diff];
+    }
+    for (int j = limit; j < size; j++) {
+      data[j] = null;
+    }
+    size = limit;
+  }
+
+  public void deleteToEnd(int i) {
+    checkIndex(i);
+    for (int j = i; j < size; j++) {
+      data[j] = null;
+    }
+    size = i;
+  }
+
   private void checkIndex(int i) {
     if (i >= size || i < 0) {
-      throw new ArrayIndexOutOfBoundsException();
+      throw new ArrayIndexOutOfBoundsException("size is " + size + "; index is " + i);
     }
   }
 }
