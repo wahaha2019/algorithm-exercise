@@ -8,7 +8,7 @@ package com.github.wahaha2019.exercise;
  * DynamicArray is not thread safe. element can be null.
  *
  */
-public class DynamicArray<T> {
+public class DynamicArray<E> {
     private static final int DEFAULT_CAPACITY = 256;
     private int size;
     private Object[] data;
@@ -47,7 +47,7 @@ public class DynamicArray<T> {
     }
 
     public void clear() {
-        for (int i = 0; i < getCapacity(); i++) {
+        for (int i = 0; i < size; i++) {
             data[i] = null;
         }
         size = 0;
@@ -57,14 +57,37 @@ public class DynamicArray<T> {
         return data.length;
     }
 
-    public Object get(int i) {
+    public E get(int i) {
         checkIndex(i);
-        return data[i];
+        return (E) data[i];
     }
 
-    public void set(int i, Object ele) {
+    public void set(int i, E ele) {
         checkIndex(i);
         data[i] = ele;
+    }
+
+    public void insert(int i, E ele) {
+        checkIndex(i);
+        if (size + 1 <= getCapacity()) {
+            for (int j = i; j < size; j++) {
+                data[j+1] = data[j];
+            }
+            data[i] = ele;
+        } else {
+            Object[] newData = new Object[getCapacity() << 1];
+            for (int j = i; j < size; j++) {
+                newData[j+1] = data[j];
+                data[j] = null;
+            }
+            newData[i] = ele;
+            for (int j = 0; j < i; j++) {
+                newData[j] = data[j];
+                data[j] = null;
+            }
+            data = newData;
+        }
+        size ++;
     }
 
     private void checkIndex(int i) {

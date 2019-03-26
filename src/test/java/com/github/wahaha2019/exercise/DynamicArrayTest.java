@@ -52,7 +52,7 @@ public class DynamicArrayTest {
     @Test
     public void testSet() {
         int capacity = 256;
-        DynamicArray array = new DynamicArray(capacity);
+        DynamicArray array = new DynamicArray<String>(capacity);
         assertThrows(IndexOutOfBoundsException.class, () -> {
             array.set(0, "0");
         });
@@ -63,6 +63,29 @@ public class DynamicArrayTest {
         assertNull(array.get(1));
         array.set(1, "1");
         assertEquals(array.get(1), "1");
+    }
+
+    @Test
+    public void testInsert() {
+        int capacity = 3;
+        DynamicArray array = new DynamicArray<String>(capacity);
+        array.setSize(1);
+        array.set(0, "1");
+        array.insert(0, "0");
+        assertEquals(array.get(0), "0");
+        assertEquals(array.get(1), "1");
+        assertEquals(array.getSize(), 2);
+        array.insert(1, "b");
+        assertEquals(array.get(0), "0");
+        assertEquals(array.get(1), "b");
+        assertEquals(array.get(2), "1");
+        assertEquals(array.getSize(), 3);
+        array.insert(2, "B");
+        assertEquals(array.get(0), "0");
+        assertEquals(array.get(1), "b");
+        assertEquals(array.get(2), "B");
+        assertEquals(array.get(3), "1");
+        assertEquals(array.getSize(), 4);
     }
 
 }
