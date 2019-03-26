@@ -159,6 +159,7 @@ public class DynamicArrayTest {
   public void testEquals() {
     DynamicArray array1 = newIntSerial(3);
     DynamicArray array2 = newIntSerial(5);
+    assertNotEquals(array1, array2);
     array2.setSize(3);
     assertEquals(array1, array2);
   }
