@@ -44,4 +44,20 @@ class SortedArrayTest {
     assertEquals(array1, array2);
     assertEquals(array1.hashCode(), array2.hashCode());
   }
+
+  @Test
+  void merge() {
+    SortedArray<Integer> src1 = SortedArray.newIntSerial(0, 2, 5);
+    SortedArray<Integer> result = SortedArray.merge(src1, new SortedArray(1));
+    System.out.println(src1);
+    assertEquals(result, src1);
+    result = SortedArray.merge(new SortedArray(1), src1);
+    assertEquals(result, src1);
+    SortedArray<Integer> src2 = SortedArray.newIntSerial(1, 2, 5);
+    System.out.println(src2);
+    result = SortedArray.merge(src1, src2);
+    SortedArray<Integer> serial = SortedArray.newIntSerial(10);
+    assertEquals(result, serial);
+    assertEquals(result.hashCode(), serial.hashCode());
+  }
 }

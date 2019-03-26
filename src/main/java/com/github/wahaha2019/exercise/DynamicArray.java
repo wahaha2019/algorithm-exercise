@@ -16,11 +16,22 @@ public class DynamicArray<E> {
 
   static DynamicArray newIntSerial(int size) {
     DynamicArray array = new DynamicArray<String>(size);
+    fillIntSerial(size, array);
+    return array;
+  }
+
+  static void fillIntSerial(int size, DynamicArray array) {
     array.setSize(size);
     for (int i = 0; i < size; i++) {
-      array.set(i, i);
+      array.data[i] = i;
     }
-    return array;
+  }
+
+  static void fillIntSerial(int begin, int step, int size, DynamicArray array) {
+    array.setSize(size);
+    for (int i = 0; i < size; i++) {
+      array.data[i] = begin + i * step;
+    }
   }
 
   public DynamicArray(int capacity) {
