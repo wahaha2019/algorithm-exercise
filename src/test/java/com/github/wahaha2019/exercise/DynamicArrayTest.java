@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DynamicArrayTest {
 
   @Test
-  public void testCreation() {
+  public void create() {
     int capacity = 256;
     DynamicArray array = new DynamicArray(capacity);
     assertTrue(array.isEmpty());
@@ -31,7 +31,7 @@ public class DynamicArrayTest {
   }
 
   @Test
-  public void testClear() {
+  public void clear() {
     int capacity = 256;
     DynamicArray array = new DynamicArray(capacity);
     int size = 128;
@@ -43,7 +43,7 @@ public class DynamicArrayTest {
   }
 
   @Test
-  public void testGet() {
+  public void get() {
     int capacity = 256;
     DynamicArray array = new DynamicArray(capacity);
     assertThrows(IndexOutOfBoundsException.class, () -> {
@@ -52,7 +52,7 @@ public class DynamicArrayTest {
   }
 
   @Test
-  public void testSet() {
+  public void set() {
     int capacity = 256;
     DynamicArray array = new DynamicArray<String>(capacity);
     assertThrows(IndexOutOfBoundsException.class, () -> {
@@ -68,7 +68,7 @@ public class DynamicArrayTest {
   }
 
   @Test
-  public void testInsert() {
+  public void insert() {
     int capacity = 3;
     DynamicArray array = new DynamicArray<String>(capacity);
     array.setSize(1);
@@ -99,7 +99,7 @@ public class DynamicArrayTest {
   }
 
   @Test
-  public void testDelete() {
+  public void delete() {
     DynamicArray array = newIntSerial(3);
     array.delete(0);
     assertEquals(array.get(0), 1);
@@ -118,7 +118,7 @@ public class DynamicArrayTest {
   }
 
   @Test
-  public void testAppend() {
+  public void append() {
     DynamicArray array = newIntSerial(3);
     array.append(3);
     assertEquals(array.get(0), 0);
@@ -129,7 +129,7 @@ public class DynamicArrayTest {
   }
 
   @Test
-  public void testDeleteToTop() {
+  public void deleteToTop() {
     DynamicArray array = newIntSerial(3);
     array.deleteToTop(1);
     assertEquals(array.get(0), 2);
@@ -154,7 +154,7 @@ public class DynamicArrayTest {
   }
 
   @Test
-  public void testDeleteToEnd() {
+  public void deleteToEnd() {
     DynamicArray array = newIntSerial(3);
     array.deleteToEnd(1);
     assertEquals(array.get(0), 0);
