@@ -11,8 +11,17 @@ public class DynamicArray<E> {
   private static final int DEFAULT_CAPACITY = 256;
   private final double expendRatio = 1.5D;
   private final int expendStep = 8;
-  private int size;
-  private Object[] data;
+  protected int size;
+  protected Object[] data;
+
+  static DynamicArray newIntSerial(int size) {
+    DynamicArray array = new DynamicArray<String>(size);
+    array.setSize(size);
+    for (int i = 0; i < size; i++) {
+      array.set(i, i);
+    }
+    return array;
+  }
 
   public DynamicArray(int capacity) {
     if (capacity <= 0) {
@@ -84,7 +93,7 @@ public class DynamicArray<E> {
       throw new IllegalArgumentException("Array size is max, can not insert any more.");
     }
     if (size + 1 <= getCapacity()) {
-      for (int j = i; j < size; j++) {
+      for (int j = size - 1; j >= i; j--) {
         data[j + 1] = data[j];
       }
       data[i] = ele;

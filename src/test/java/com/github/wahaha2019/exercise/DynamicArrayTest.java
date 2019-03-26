@@ -5,6 +5,7 @@ package com.github.wahaha2019.exercise;
 
 import org.junit.jupiter.api.Test;
 
+import static com.github.wahaha2019.exercise.DynamicArray.newIntSerial;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DynamicArrayTest {
@@ -87,6 +88,14 @@ public class DynamicArrayTest {
     assertEquals(array.get(2), "B");
     assertEquals(array.get(3), "1");
     assertEquals(array.getSize(), 4);
+    DynamicArray array2 = newIntSerial(10);
+    DynamicArray<Integer> array3 = new DynamicArray<Integer>(10);
+    array3.append(9);
+    for (int i = 8; i >= 0; i--) {
+      array3.insert(0, i);
+    }
+    assertEquals(array3, array2);
+    assertEquals(array3.hashCode(), array2.hashCode());
   }
 
   @Test
@@ -177,18 +186,9 @@ public class DynamicArrayTest {
     DynamicArray array1 = newIntSerial(3);
     DynamicArray array2 = newIntSerial(5);
     array2.setSize(3);
-    System.out.println(array1.toString());
+    System.out.println(array1);
     assertEquals(array1.toString(), "DynamicArray{size=3,data={0,1,2}}");
     assertEquals(array1.toString(), array2.toString());
-  }
-
-  private DynamicArray newIntSerial(int size) {
-    DynamicArray array = new DynamicArray<String>(size);
-    array.setSize(size);
-    for (int i = 0; i < size; i++) {
-      array.set(i, i);
-    }
-    return array;
   }
 
 }
