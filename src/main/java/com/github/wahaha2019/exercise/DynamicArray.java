@@ -9,10 +9,15 @@ package com.github.wahaha2019.exercise;
  */
 public class DynamicArray<E> {
   private static final int DEFAULT_CAPACITY = 256;
+  private final double expendRatio = 1.5D;
+  private final int expendStep = 8;
   private int size;
   private Object[] data;
 
   public DynamicArray(int capacity) {
+    if (capacity <= 0) {
+      throw new IllegalArgumentException("Array capacity must greater than 0");
+    }
     data = new Object[capacity];
     size = 0;
   }
@@ -34,6 +39,9 @@ public class DynamicArray<E> {
   }
 
   public void setSize(int size) {
+    if (size <= 0) {
+      throw new IllegalArgumentException("Array size must greater than 0");
+    }
     if (size > getCapacity()) {
       Object[] newData = new Object[size];
       for (int i = 0; i < this.size; i++) {
@@ -41,6 +49,10 @@ public class DynamicArray<E> {
         data[i] = null;
       }
       data = newData;
+    } else {
+      for (int i = size; i < this.size; i++) {
+        data[i] = null;
+      }
     }
     this.size = size;
   }
@@ -67,13 +79,24 @@ public class DynamicArray<E> {
   }
 
   public void insert(int i, E ele) {
+    checkIndex(i);
+    if (i == Integer.MAX_VALUE) {
+      throw new IllegalArgumentException("Array size is max, can not insert any more.");
+    }
     if (size + 1 <= getCapacity()) {
       for (int j = i; j < size; j++) {
         data[j + 1] = data[j];
       }
       data[i] = ele;
     } else {
-      Object[] newData = new Object[getCapacity() << 1];
+      long newCapacity = Math.round(getCapacity() * expendRatio);
+      if (newCapacity <= getCapacity()) {
+        newCapacity += expendStep;
+      }
+      if (newCapacity > Integer.MAX_VALUE) {
+        newCapacity = Integer.MAX_VALUE;
+      }
+      Object[] newData = new Object[(int)newCapacity];
       for (int j = i; j < size; j++) {
         newData[j + 1] = data[j];
         data[j] = null;
@@ -98,6 +121,9 @@ public class DynamicArray<E> {
   }
 
   public void append(E ele) {
+    if (getCapacity() == Integer.MAX_VALUE) {
+      throw new IllegalArgumentException("Array size is max, can not append any more.");
+    }
     setSize(size + 1);
     data[size - 1] = ele;
   }
