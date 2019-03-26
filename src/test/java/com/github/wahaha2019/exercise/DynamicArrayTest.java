@@ -3,13 +3,14 @@
  */
 package com.github.wahaha2019.exercise;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DynamicArrayTest {
 
-    @Test public void testCreation() {
+    @Test
+    public void testCreation() {
         int capacity = 256;
         DynamicArray array = new DynamicArray(capacity);
         assertTrue(array.isEmpty());
@@ -38,4 +39,30 @@ public class DynamicArrayTest {
         assertEquals(array.getSize(), 0);
         assertEquals(array.getCapacity(), capacity);
     }
+
+    @Test
+    public void testGet() {
+        int capacity = 256;
+        DynamicArray array = new DynamicArray(capacity);
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            Object ele = array.get(0);
+        });
+    }
+
+    @Test
+    public void testSet() {
+        int capacity = 256;
+        DynamicArray array = new DynamicArray(capacity);
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            array.set(0, "0");
+        });
+        array.setSize(1);
+        array.set(0, "0");
+        assertEquals(array.get(0), "0");
+        array.setSize(2);
+        assertNull(array.get(1));
+        array.set(1, "1");
+        assertEquals(array.get(1), "1");
+    }
+
 }
