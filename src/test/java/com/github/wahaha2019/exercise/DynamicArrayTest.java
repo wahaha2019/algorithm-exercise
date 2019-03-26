@@ -155,6 +155,32 @@ public class DynamicArrayTest {
     assertTrue(array.isEmpty());
   }
 
+  @Test
+  public void testEquals() {
+    DynamicArray array1 = getArrayOfIntSerial(3);
+    DynamicArray array2 = getArrayOfIntSerial(5);
+    array2.setSize(3);
+    assertEquals(array1, array2);
+  }
+
+  @Test
+  public void testHash() {
+    DynamicArray array1 = getArrayOfIntSerial(3);
+    DynamicArray array2 = getArrayOfIntSerial(5);
+    array2.setSize(3);
+    assertEquals(array1.hashCode(), array2.hashCode());
+  }
+
+  @Test
+  public void testToString() {
+    DynamicArray array1 = getArrayOfIntSerial(3);
+    DynamicArray array2 = getArrayOfIntSerial(5);
+    array2.setSize(3);
+    System.out.println(array1.toString());
+    assertEquals(array1.toString(), "DynamicArray{size=3,data={0,1,2}}");
+    assertEquals(array1.toString(), array2.toString());
+  }
+
   private DynamicArray getArrayOfIntSerial(int size) {
     DynamicArray array = new DynamicArray<String>(size);
     array.setSize(size);

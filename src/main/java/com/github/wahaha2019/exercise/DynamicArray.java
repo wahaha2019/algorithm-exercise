@@ -96,7 +96,7 @@ public class DynamicArray<E> {
       if (newCapacity > Integer.MAX_VALUE) {
         newCapacity = Integer.MAX_VALUE;
       }
-      Object[] newData = new Object[(int)newCapacity];
+      Object[] newData = new Object[(int) newCapacity];
       for (int j = i; j < size; j++) {
         newData[j + 1] = data[j];
         data[j] = null;
@@ -114,10 +114,10 @@ public class DynamicArray<E> {
   public void delete(int i) {
     checkIndex(i);
     for (int j = i; j < size - 1; j++) {
-      data[j] = data[j+1];
+      data[j] = data[j + 1];
     }
     data[size - 1] = null;
-    size --;
+    size--;
   }
 
   public void append(E ele) {
@@ -153,5 +153,56 @@ public class DynamicArray<E> {
     if (i >= size || i < 0) {
       throw new ArrayIndexOutOfBoundsException("size is " + size + "; index is " + i);
     }
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null) {
+      return false;
+    }
+    if (!(obj instanceof DynamicArray)) {
+      return false;
+    }
+    DynamicArray other = (DynamicArray) obj;
+    if (this.size != other.size) {
+      return false;
+    }
+    for (int i = 0; i < size; i++) {
+      if (this.data[i] == null) {
+        if (other.data[i] != null) {
+          return false;
+        }
+      } else if (!this.data[i].equals(other.data[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = 1;
+    for (int i = 0; i < size; i++) {
+      result = 31 * result + (data[i] == null ? 0 : data[i].hashCode());
+    }
+    result = 31 * result + size;
+    return result;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder(64);
+    sb.append("DynamicArray{size=");
+    sb.append(size);
+    sb.append(",");
+    sb.append("data={");
+    for (int i = 0; i < size; i++) {
+      sb.append(data[i]);
+      if (i < size - 1) {
+        sb.append(',');
+      }
+    }
+    sb.append("}}");
+    return sb.toString();
   }
 }
