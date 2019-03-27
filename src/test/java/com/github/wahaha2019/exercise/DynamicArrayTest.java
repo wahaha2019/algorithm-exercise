@@ -186,6 +186,7 @@ public class DynamicArrayTest {
 
   @Test
   public void testToString() {
+    assertEquals(new DynamicArray().toString(), "DynamicArray{size=0,data={}}");
     DynamicArray array1 = newIntSerial(3);
     DynamicArray array2 = newIntSerial(5);
     array2.setSize(3);

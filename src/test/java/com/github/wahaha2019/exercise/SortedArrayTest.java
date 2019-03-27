@@ -36,11 +36,12 @@ class SortedArrayTest {
 
   @Test
   void merge() {
+    assertEquals(new SortedArray(), SortedArray.merge(new SortedArray(), new SortedArray()));
     SortedArray<Integer> src1 = SortedArray.newIntSerial(0, 2, 5);
-    SortedArray<Integer> result = SortedArray.merge(src1, new SortedArray(1));
+    SortedArray<Integer> result = SortedArray.merge(src1, new SortedArray());
     System.out.println(src1);
     assertEquals(result, src1);
-    result = SortedArray.merge(new SortedArray(1), src1);
+    result = SortedArray.merge(new SortedArray(), src1);
     assertEquals(result, src1);
     SortedArray<Integer> src2 = SortedArray.newIntSerial(1, 2, 5);
     System.out.println(src2);

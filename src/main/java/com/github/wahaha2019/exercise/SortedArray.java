@@ -10,6 +10,10 @@ public class SortedArray<E extends Comparable> extends DynamicArray<E> {
     super(capacity);
   }
 
+  public SortedArray() {
+    super();
+  }
+
   static SortedArray newIntSerial(int size) {
     SortedArray array = new SortedArray<String>(size);
     fillIntSerial(size, array);
@@ -29,7 +33,10 @@ public class SortedArray<E extends Comparable> extends DynamicArray<E> {
     if (src1 == null || src2 == null) {
       throw new IllegalArgumentException("Every source array must not be null.");
     }
-    SortedArray result = new SortedArray<String>(src1.size + src2.size);
+    if (src1.size + src2.size == 0) {
+      return new SortedArray(1);
+    }
+    SortedArray result = new SortedArray(src1.size + src2.size);
     result.size = result.getCapacity();
     int k = 0;
     for (int i = 0, j = 0; i < src1.size || j < src2.size; k++) {
