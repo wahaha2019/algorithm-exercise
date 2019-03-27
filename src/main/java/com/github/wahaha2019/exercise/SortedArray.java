@@ -17,6 +17,9 @@ public class SortedArray<E extends Comparable> extends DynamicArray<E> {
   }
 
   static SortedArray newIntSerial(int begin, int step, int size) {
+    if (step <= 0) {
+      throw new IllegalArgumentException("step must greater than 0");
+    }
     SortedArray array = new SortedArray<String>(size);
     fillIntSerial(begin, step, size, array);
     return array;
