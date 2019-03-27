@@ -71,20 +71,19 @@ public class SortedArray<E extends Comparable> extends DynamicArray<E> {
   }
 
   @Override
+  @Deprecated
   public void append(@NotNull E ele) {
-    if (size == 0 || ele.compareTo(data[size - 1]) >= 0) {
-      super.append(ele);
-    } else {
-      throw new RuntimeException("must append an element that greater or equals than last element.");
-    }
+    throw new RuntimeException("method not supported.");
   }
 
   @Override
+  @Deprecated
   public void set(int i, E ele) {
     throw new RuntimeException("method not supported.");
   }
 
   @Override
+  @Deprecated
   public void insert(int i, E ele) {
     throw new RuntimeException("method not supported.");
   }

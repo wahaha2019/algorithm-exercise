@@ -35,17 +35,6 @@ class SortedArrayTest {
   }
 
   @Test
-  void append() {
-    SortedArray<Integer> array1 = new SortedArray<Integer>(1);
-    for (int i = 0; i < 10; i++) {
-      array1.append(i);
-    }
-    DynamicArray array2 = newIntSerial(10);
-    assertEquals(array1, array2);
-    assertEquals(array1.hashCode(), array2.hashCode());
-  }
-
-  @Test
   void merge() {
     SortedArray<Integer> src1 = SortedArray.newIntSerial(0, 2, 5);
     SortedArray<Integer> result = SortedArray.merge(src1, new SortedArray(1));
