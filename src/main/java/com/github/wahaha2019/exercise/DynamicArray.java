@@ -99,8 +99,14 @@ public class DynamicArray<E> {
   }
 
   public void insert(int i, E ele) {
-    checkIndex(i);
-    if (i == Integer.MAX_VALUE) {
+    if (size == 0) {
+      if (i != 0) {
+        throw new IllegalArgumentException("Index must be 0 when insert to an empty array.");
+      }
+    } else {
+      checkIndex(i);
+    }
+    if (i == Integer.MAX_VALUE || size == Integer.MAX_VALUE) {
       throw new IllegalArgumentException("Array size is max, can not insert any more.");
     }
     if (size + 1 <= getCapacity()) {

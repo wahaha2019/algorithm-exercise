@@ -71,6 +71,9 @@ public class DynamicArrayTest {
   public void insert() {
     int capacity = 3;
     DynamicArray<String> array = new DynamicArray<>(capacity);
+    array.insert(0, "0");
+    assertEquals(array.get(0), "0");
+    assertEquals(array.getSize(), 1);
     array.setSize(1);
     array.set(0, "1");
     array.insert(0, "0");
