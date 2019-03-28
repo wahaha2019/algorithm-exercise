@@ -13,186 +13,191 @@ public class ArrayListTest {
   @Test
   public void create() {
     int capacity = 256;
-    ArrayList aist = new ArrayList(capacity);
-    assertTrue(aist.isEmpty());
-    assertEquals(aist.getSize(), 0);
-    assertEquals(aist.getCapacity(), capacity);
+    ArrayList list = new ArrayList(capacity);
+    assertTrue(list.isEmpty());
+    assertEquals(list.getSize(), 0);
+    assertEquals(list.getCapacity(), capacity);
     int size = 128;
-    aist.setSize(size);
-    assertFalse(aist.isEmpty());
-    assertEquals(aist.getSize(), size);
-    assertEquals(aist.getCapacity(), capacity);
+    list.setSize(size);
+    assertFalse(list.isEmpty());
+    assertEquals(list.getSize(), size);
+    assertEquals(list.getCapacity(), capacity);
     size = 4096;
-    aist.setSize(size);
-    assertTrue(aist.isFull());
-    assertFalse(aist.isEmpty());
-    assertEquals(aist.getSize(), size);
-    assertEquals(aist.getCapacity(), size);
+    list.setSize(size);
+    assertTrue(list.isFull());
+    assertFalse(list.isEmpty());
+    assertEquals(list.getSize(), size);
+    assertEquals(list.getCapacity(), size);
+  }
+
+  @Test
+  public void serialize() {
+    
   }
 
   @Test
   public void clear() {
     int capacity = 256;
-    ArrayList aist = new ArrayList(capacity);
+    ArrayList list = new ArrayList(capacity);
     int size = 128;
-    aist.setSize(size);
-    aist.clear();
-    assertTrue(aist.isEmpty());
-    assertEquals(aist.getSize(), 0);
-    assertEquals(aist.getCapacity(), capacity);
+    list.setSize(size);
+    list.clear();
+    assertTrue(list.isEmpty());
+    assertEquals(list.getSize(), 0);
+    assertEquals(list.getCapacity(), capacity);
   }
 
   @Test
   public void get() {
     int capacity = 256;
-    ArrayList aist = new ArrayList(capacity);
+    ArrayList list = new ArrayList(capacity);
     assertThrows(IndexOutOfBoundsException.class, () -> {
-      Object ele = aist.get(0);
+      Object ele = list.get(0);
     });
   }
 
   @Test
   public void set() {
     int capacity = 256;
-    ArrayList<String> aist = new ArrayList<>(capacity);
+    ArrayList<String> list = new ArrayList<>(capacity);
     assertThrows(IndexOutOfBoundsException.class, () -> {
-      aist.set(0, "0");
+      list.set(0, "0");
     });
-    aist.setSize(1);
-    aist.set(0, "0");
-    assertEquals(aist.get(0), "0");
-    aist.setSize(2);
-    assertNull(aist.get(1));
-    aist.set(1, "1");
-    assertEquals(aist.get(1), "1");
+    list.setSize(1);
+    list.set(0, "0");
+    assertEquals(list.get(0), "0");
+    list.setSize(2);
+    assertNull(list.get(1));
+    list.set(1, "1");
+    assertEquals(list.get(1), "1");
   }
 
   @Test
   public void insert() {
     int capacity = 3;
-    ArrayList<String> aist = new ArrayList<>(capacity);
-    aist.insert(0, "0");
-    assertEquals(aist.get(0), "0");
-    assertEquals(aist.getSize(), 1);
-    aist.setSize(1);
-    aist.set(0, "1");
-    aist.insert(0, "0");
-    assertEquals(aist.get(0), "0");
-    assertEquals(aist.get(1), "1");
-    assertEquals(aist.getSize(), 2);
-    aist.insert(1, "b");
-    assertEquals(aist.get(0), "0");
-    assertEquals(aist.get(1), "b");
-    assertEquals(aist.get(2), "1");
-    assertEquals(aist.getSize(), 3);
-    aist.insert(2, "B");
-    assertEquals(aist.get(0), "0");
-    assertEquals(aist.get(1), "b");
-    assertEquals(aist.get(2), "B");
-    assertEquals(aist.get(3), "1");
-    assertEquals(aist.getSize(), 4);
-    ArrayList aist2 = newIntSerial(10);
-    ArrayList<Integer> aist3 = new ArrayList<Integer>(10);
-    aist3.append(9);
+    ArrayList<String> list = new ArrayList<>(capacity);
+    list.insert(0, "0");
+    assertEquals(list.get(0), "0");
+    assertEquals(list.getSize(), 1);
+    list.setSize(1);
+    list.set(0, "1");
+    list.insert(0, "0");
+    assertEquals(list.get(0), "0");
+    assertEquals(list.get(1), "1");
+    assertEquals(list.getSize(), 2);
+    list.insert(1, "b");
+    assertEquals(list.get(0), "0");
+    assertEquals(list.get(1), "b");
+    assertEquals(list.get(2), "1");
+    assertEquals(list.getSize(), 3);
+    list.insert(2, "B");
+    assertEquals(list.get(0), "0");
+    assertEquals(list.get(1), "b");
+    assertEquals(list.get(2), "B");
+    assertEquals(list.get(3), "1");
+    assertEquals(list.getSize(), 4);
+    ArrayList list2 = newIntSerial(10);
+    ArrayList<Integer> list3 = new ArrayList<Integer>(10);
+    list3.append(9);
     for (int i = 8; i >= 0; i--) {
-      aist3.insert(0, i);
+      list3.insert(0, i);
     }
-    assertEquals(aist3, aist2);
-    assertEquals(aist3.hashCode(), aist2.hashCode());
+    assertEquals(list3, list2);
+    assertEquals(list3.hashCode(), list2.hashCode());
   }
 
   @Test
   public void delete() {
-    ArrayList aist = newIntSerial(3);
-    aist.delete(0);
-    assertEquals(aist.get(0), 1);
-    assertEquals(aist.get(1), 2);
-    assertEquals(aist.getSize(), 2);
-    aist = newIntSerial(3);
-    aist.delete(1);
-    assertEquals(aist.get(0), 0);
-    assertEquals(aist.get(1), 2);
-    assertEquals(aist.getSize(), 2);
-    aist = newIntSerial(3);
-    aist.delete(2);
-    assertEquals(aist.get(0), 0);
-    assertEquals(aist.get(1), 1);
-    assertEquals(aist.getSize(), 2);
+    ArrayList list = newIntSerial(3);
+    list.delete(0);
+    assertEquals(list.get(0), 1);
+    assertEquals(list.get(1), 2);
+    assertEquals(list.getSize(), 2);
+    list = newIntSerial(3);
+    list.delete(1);
+    assertEquals(list.get(0), 0);
+    assertEquals(list.get(1), 2);
+    assertEquals(list.getSize(), 2);
+    list = newIntSerial(3);
+    list.delete(2);
+    assertEquals(list.get(0), 0);
+    assertEquals(list.get(1), 1);
+    assertEquals(list.getSize(), 2);
   }
 
   @Test
   public void append() {
-    ArrayList aist = newIntSerial(3);
-    aist.append(3);
-    assertEquals(aist.get(0), 0);
-    assertEquals(aist.get(1), 1);
-    assertEquals(aist.get(2), 2);
-    assertEquals(aist.get(3), 3);
-    assertEquals(aist.getSize(), 4);
+    ArrayList list = newIntSerial(3);
+    list.append(3);
+    assertEquals(list.get(0), 0);
+    assertEquals(list.get(1), 1);
+    assertEquals(list.get(2), 2);
+    assertEquals(list.get(3), 3);
+    assertEquals(list.getSize(), 4);
   }
 
   @Test
   public void deleteToTop() {
-    ArrayList aist = newIntSerial(3);
-    aist.deleteToTop(1);
-    assertEquals(aist.get(0), 2);
-    assertEquals(aist.getSize(), 1);
-    aist = newIntSerial(3);
-    aist.deleteToTop(0);
-    assertEquals(aist.get(0), 1);
-    assertEquals(aist.get(1), 2);
-    assertEquals(aist.getSize(), 2);
-    aist = newIntSerial(5);
-    aist.deleteToTop(2);
-    assertEquals(aist.get(0), 3);
-    assertEquals(aist.get(1), 4);
-    assertEquals(aist.getSize(), 2);
-    aist = newIntSerial(5);
-    aist.deleteToTop(3);
-    assertEquals(aist.get(0), 4);
-    assertEquals(aist.getSize(), 1);
-    aist = newIntSerial(5);
-    aist.deleteToTop(4);
-    assertTrue(aist.isEmpty());
+    ArrayList list = newIntSerial(3);
+    list.deleteToTop(1);
+    assertEquals(list.get(0), 2);
+    assertEquals(list.getSize(), 1);
+    list = newIntSerial(3);
+    list.deleteToTop(0);
+    assertEquals(list.get(0), 1);
+    assertEquals(list.get(1), 2);
+    assertEquals(list.getSize(), 2);
+    list = newIntSerial(5);
+    list.deleteToTop(2);
+    assertEquals(list.get(0), 3);
+    assertEquals(list.get(1), 4);
+    assertEquals(list.getSize(), 2);
+    list = newIntSerial(5);
+    list.deleteToTop(3);
+    assertEquals(list.get(0), 4);
+    assertEquals(list.getSize(), 1);
+    list = newIntSerial(5);
+    list.deleteToTop(4);
+    assertTrue(list.isEmpty());
   }
 
   @Test
   public void deleteToEnd() {
-    ArrayList aist = newIntSerial(3);
-    aist.deleteToEnd(1);
-    assertEquals(aist.get(0), 0);
-    assertEquals(aist.getSize(), 1);
-    aist = newIntSerial(5);
-    aist.deleteToEnd(0);
-    assertTrue(aist.isEmpty());
+    ArrayList list = newIntSerial(3);
+    list.deleteToEnd(1);
+    assertEquals(list.get(0), 0);
+    assertEquals(list.getSize(), 1);
+    list = newIntSerial(5);
+    list.deleteToEnd(0);
+    assertTrue(list.isEmpty());
   }
 
   @Test
   public void equals() {
-    ArrayList aist1 = newIntSerial(3);
-    ArrayList aist2 = newIntSerial(5);
-    assertNotEquals(aist1, aist2);
-    aist2.setSize(3);
-    assertEquals(aist1, aist2);
+    ArrayList list1 = newIntSerial(3);
+    ArrayList list2 = newIntSerial(5);
+    assertNotEquals(list1, list2);
+    list2.setSize(3);
+    assertEquals(list1, list2);
   }
 
   @Test
   public void hash() {
-    ArrayList aist1 = newIntSerial(3);
-    ArrayList aist2 = newIntSerial(5);
-    aist2.setSize(3);
-    assertEquals(aist1.hashCode(), aist2.hashCode());
+    ArrayList list1 = newIntSerial(3);
+    ArrayList list2 = newIntSerial(5);
+    list2.setSize(3);
+    assertEquals(list1.hashCode(), list2.hashCode());
   }
 
   @Test
   public void testToString() {
     assertEquals(new ArrayList().toString(), "ArrayList{size=0,data={}}");
-    ArrayList aist1 = newIntSerial(3);
-    ArrayList aist2 = newIntSerial(5);
-    aist2.setSize(3);
-    System.out.println(aist1);
-    assertEquals(aist1.toString(), "ArrayList{size=3,data={0,1,2}}");
-    assertEquals(aist1.toString(), aist2.toString());
+    ArrayList list1 = newIntSerial(3);
+    ArrayList list2 = newIntSerial(5);
+    list2.setSize(3);
+    System.out.println(list1);
+    assertEquals(list1.toString(), "ArrayList{size=3,data={0,1,2}}");
+    assertEquals(list1.toString(), list2.toString());
   }
 
 }

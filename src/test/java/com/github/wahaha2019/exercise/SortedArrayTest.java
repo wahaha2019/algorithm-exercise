@@ -19,19 +19,19 @@ class SortedArrayTest {
 
   @Test
   void insert() {
-    SortedArrayList<Integer> aist1 = new SortedArrayList<Integer>(1);
+    SortedArrayList<Integer> list1 = new SortedArrayList<Integer>(1);
     for (int i = 0; i < 10; i++) {
-      aist1.insert(i);
+      list1.insert(i);
     }
-    ArrayList aist2 = newIntSerial(10);
-    assertEquals(aist1, aist2);
-    assertEquals(aist1.hashCode(), aist2.hashCode());
-    SortedArrayList<Integer> aist3 = new SortedArrayList<Integer>(1);
+    ArrayList list2 = newIntSerial(10);
+    assertEquals(list1, list2);
+    assertEquals(list1.hashCode(), list2.hashCode());
+    SortedArrayList<Integer> list3 = new SortedArrayList<Integer>(1);
     for (int i = 9; i >= 0; i--) {
-      aist3.insert(i);
+      list3.insert(i);
     }
-    assertEquals(aist3, aist2);
-    assertEquals(aist3.hashCode(), aist2.hashCode());
+    assertEquals(list3, list2);
+    assertEquals(list3.hashCode(), list2.hashCode());
   }
 
   @Test
