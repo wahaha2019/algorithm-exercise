@@ -8,7 +8,7 @@ import static com.github.wahaha2019.exercise.SortedArrayList.merge;
 import static com.github.wahaha2019.exercise.SortedArrayList.newIntSerial;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class SortedArrayTest {
+class SortedArrayListTest {
 
   @Test
   public void _clone() {
