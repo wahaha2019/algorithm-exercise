@@ -19,23 +19,23 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
   }
 
   static SortedArrayList newIntSerial(int size) {
-    SortedArrayList aist = new SortedArrayList<String>(size);
-    fillIntSerial(size, aist);
-    return aist;
+    SortedArrayList list = new SortedArrayList<String>(size);
+    fillIntSerial(size, list);
+    return list;
   }
 
   static SortedArrayList newIntSerial(int begin, int step, int size) {
     if (step <= 0) {
       throw new IllegalArgumentException("step must greater than 0");
     }
-    SortedArrayList aist = new SortedArrayList<String>(size);
-    fillIntSerial(begin, step, size, aist);
-    return aist;
+    SortedArrayList list = new SortedArrayList<String>(size);
+    fillIntSerial(begin, step, size, list);
+    return list;
   }
 
   public static SortedArrayList merge(final SortedArrayList src1, final SortedArrayList src2) {
     if (src1 == null || src2 == null) {
-      throw new IllegalArgumentException("Every source aist must not be null.");
+      throw new IllegalArgumentException("Every source list must not be null.");
     }
     if (src1.size + src2.size == 0) {
       return new SortedArrayList(1);
