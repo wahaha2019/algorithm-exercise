@@ -4,15 +4,19 @@
 
 package com.github.wahaha2019.exercise;
 
+import java.io.Serializable;
+import java.util.Arrays;
+
 /**
  * ArrayList is not thread safe. element can be null.
  */
-public class ArrayList<E> {
+public class ArrayList<E> implements Serializable {
+  private static final long serialVersionUID = 5810606339357346347L;
   private static final int DEFAULT_CAPACITY = 256;
-  private final double expendRatio = 1.5D;
-  private final int expendStep = 8;
+  private transient final double expendRatio = 1.5D;
+  private transient final int expendStep = 8;
+  protected transient Object[] data;
   protected int size;
-  protected Object[] data;
 
   static ArrayList<Integer> newIntSerial(int size) {
     ArrayList<Integer> list = new ArrayList<>(size);
@@ -59,8 +63,12 @@ public class ArrayList<E> {
   }
 
   public void setSize(int size) {
-    if (size <= 0) {
+    if (size < 0) {
       throw new IllegalArgumentException("List size must greater than 0");
+    }
+    if (size == 0) {
+      clear();
+      return;
     }
     if (size > getCapacity()) {
       Object[] newData = new Object[size];
@@ -232,5 +240,37 @@ public class ArrayList<E> {
     }
     sb.append("}}");
     return sb.toString();
+  }
+
+  /**
+   * Returns a shallow copy of this <tt>ArrayList</tt> instance.  (The elements themselves are not copied.)
+   *
+   * @return a clone of this <tt>ArrayList</tt> instance
+   */
+  @Override
+  public ArrayList<E> clone() {
+    ArrayList copy = new ArrayList();
+    copy.size = size;
+    copy.data = Arrays.copyOf(data, size);
+    return copy;
+  }
+
+  private void writeObject(java.io.ObjectOutputStream s)
+      throws java.io.IOException {
+    s.defaultWriteObject();
+    for (int i = 0; i < size; i++) {
+      s.writeObject(data[i]);
+    }
+  }
+
+  private void readObject(java.io.ObjectInputStream s)
+      throws java.io.IOException, ClassNotFoundException {
+    s.defaultReadObject();
+    if (size > 0) {
+      data = new Object[size];
+      for (int i = 0; i < size; i++) {
+        data[i] = s.readObject();
+      }
+    }
   }
 }

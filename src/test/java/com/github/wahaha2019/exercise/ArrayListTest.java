@@ -5,6 +5,8 @@ package com.github.wahaha2019.exercise;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.*;
+
 import static com.github.wahaha2019.exercise.ArrayList.newIntSerial;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,8 +33,21 @@ public class ArrayListTest {
   }
 
   @Test
-  public void serialize() {
-    
+  public void _clone() {
+    ArrayList list1 = newIntSerial(5);
+    ArrayList list2 = list1.clone();
+    assertEquals(list1, list2);
+  }
+
+  @Test
+  public void serialize() throws IOException, ClassNotFoundException {
+    ArrayList list1 = newIntSerial(5);
+    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    ObjectOutputStream os = new ObjectOutputStream(bos);
+    os.writeObject(list1);
+    os.close();
+    ArrayList list2 = (ArrayList) new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray())).readObject();
+    assertEquals(list1, list2);
   }
 
   @Test
