@@ -32,6 +32,9 @@ public class ArrayList<E> implements Serializable {
   }
 
   static void fillIntSerial(int begin, int step, int size, ArrayList list) {
+    if (step <= 0) {
+      throw new IllegalArgumentException("step must greater than 0");
+    }
     list.setSize(size);
     for (int i = 0; i < size; i++) {
       list.data[i] = begin + i * step;

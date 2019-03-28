@@ -19,6 +19,9 @@ public class LinkedList<E> {
   }
 
   static LinkedList<Integer> newIntSerial(int begin, int step, int size) {
+    if (step <= 0) {
+      throw new IllegalArgumentException("step must greater than 0");
+    }
     LinkedList<Integer> list = new LinkedList<>();
     for (int i = 0; i < size; i++) {
       list.append(begin + i * step);
