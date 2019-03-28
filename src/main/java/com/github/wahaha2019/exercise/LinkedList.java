@@ -5,23 +5,25 @@ package com.github.wahaha2019.exercise;
  */
 public class LinkedList<E> {
   protected int size;
-  protected E data;
-  protected LinkedList next;
+  //  protected E data;
+//  protected LinkedList next;
+  protected Node head;
+  protected Node tail;
 
   static LinkedList<Integer> newIntSerial(int size) {
-    LinkedList<Integer> head = new LinkedList<>();
+    LinkedList<Integer> list = new LinkedList<>();
     for (int i = 0; i < size; i++) {
-      head.append(i);
+      list.append(i);
     }
-    return head;
+    return list;
   }
 
   static LinkedList<Integer> newIntSerial(int begin, int step, int size) {
-    LinkedList<Integer> head = new LinkedList<>();
+    LinkedList<Integer> list = new LinkedList<>();
     for (int i = 0; i < size; i++) {
-      head.append(begin + i * step);
+      list.append(begin + i * step);
     }
-    return head;
+    return list;
   }
 
   /**
@@ -30,9 +32,10 @@ public class LinkedList<E> {
    * @param ele the element object.
    */
   public LinkedList(E ele) {
-    this.data = ele;
-    this.next = null;
-    this.size = 1;
+    Node node = new Node(ele);
+    head = node;
+    tail = node;
+    size = 1;
   }
 
   /**
@@ -41,22 +44,39 @@ public class LinkedList<E> {
   public LinkedList() {
   }
 
+  protected static class Node<E> {
+    protected E data;
+    protected Node<E> next;
+
+    public Node(E ele) {
+      data = ele;
+    }
+  }
+
   public boolean isEmpty() {
     return size == 0;
   }
 
   public void clear() {
-    if (next != null) {
-      next.clear();
+    if (isEmpty()) {
+      return;
     }
+    Node<E> node = head;
+    Node<E> _next = null;
+    while (node != null) {
+      node.data = null;
+      _next = node.next;
+      node.next = null;
+      node = _next;
+    }
+    head = null;
+    tail = null;
     size = 0;
-    data = null;
-    next = null;
   }
 
   public E get(int idx) {
     checkIndex(idx);
-    LinkedList node = this;
+    Node node = head;
     for (int i = 0; i < idx; i++) {
       node = node.next;
     }
@@ -65,7 +85,7 @@ public class LinkedList<E> {
 
   public void set(int idx, E ele) {
     checkIndex(idx);
-    LinkedList node = this;
+    Node node = head;
     for (int i = 0; i < idx; i++) {
       node = node.next;
     }
@@ -87,81 +107,67 @@ public class LinkedList<E> {
       append(ele);
       return;
     }
+    Node<E> newNode = new Node(ele);
     if (idx == 0) {
-      LinkedList newNode = new LinkedList(data);
-      newNode.size = size;
-      newNode.next = next;
-      data = ele;
+      newNode.next = head;
+      head = newNode;
       size++;
-      next = newNode;
       return;
     }
-    if (idx == 1) {
-      LinkedList newNode = new LinkedList(ele);
-      newNode.size = size;
-      newNode.next = next;
-      size++;
-      next = newNode;
-      return;
-    }
-    LinkedList node = this;
+    Node<E> node = head;
     for (int i = 0; i < idx - 1; i++) {
-      node.size++;
       node = node.next;
     }
-    LinkedList newNode = new LinkedList(ele);
-    newNode.size = size;
     newNode.next = node.next;
     node.next = newNode;
+    size++;
   }
 
   public void delete(int idx) {
     checkIndex(idx);
-    if (size == 0) {
-      return;
-    }
     if (size == 1) {
-      data = null;
-      size = 0;
+      clear();
       return;
     }
-    LinkedList node = this;
-    if (idx <= 1) {
-      node.size = node.next.size;
-      if (idx == 0) {
-        node.data = node.next.data;
-      }
-      node.next.data = null;
-      node.next = node.next.next;
+    if (idx == 0) { //delete head
+      head.data = null;
+      Node<E> node = head.next;
+      head.next = null;
+      head = node;
+      size--;
       return;
     }
+    Node<E> node = head;
     for (int i = 0; i < idx - 1; i++) {
-      node.size--;
       node = node.next;
     }
-    node.next.data = null;
-    node.next = node.next.next;
+    if (idx == size - 1) {  //delete tail
+      tail.data = null;
+      node.next = null;
+      tail = node;
+    } else {  //delete other
+      Node<E> _delete = node.next;
+      node.next = _delete.next;
+      _delete.data = null;
+      _delete.next = null;
+    }
+    size--;
   }
 
   public void append(E ele) {
-    if (size == 0) {
-      this.data = ele;
-      this.size = 1;
-      return;
-    }
     if (size == Integer.MAX_VALUE) {
       throw new IllegalArgumentException("List size is max, can not append any more.");
     }
-    LinkedList node = this;
-    LinkedList last = this;
-    while (node != null) {
-      if (node.next == null) {
-        last = node;
-      }
-      node.size++;
-      node = node.next;
+    Node<E> newNode = new Node(ele);
+    if (size == 0) {
+      head = newNode;
+      tail = newNode;
+      size++;
+      return;
     }
-    last.next = new LinkedList(ele);
+    tail.next = newNode;
+    tail = newNode;
+    size++;
   }
 
   private void checkIndex(int i) {
@@ -174,22 +180,6 @@ public class LinkedList<E> {
     return size;
   }
 
-  public E getData() {
-    return data;
-  }
-
-  public void setData(E data) {
-    this.data = data;
-  }
-
-  public LinkedList getNext() {
-    return next;
-  }
-
-  public void setNext(LinkedList next) {
-    this.next = next;
-  }
-
   @Override
   public boolean equals(Object obj) {
     if (obj == null) {
@@ -198,13 +188,14 @@ public class LinkedList<E> {
     if (!(obj instanceof LinkedList)) {
       return false;
     }
-    LinkedList node2 = (LinkedList) obj;
-    if (this.size != node2.size) {
+    LinkedList other = (LinkedList) obj;
+    if (size != other.size) {
       return false;
-    } else if (this.size - node2.size == 0) {
+    } else if (size - other.size == 0) {
       return true;
     }
-    LinkedList node1 = this;
+    Node<E> node1 = head;
+    Node<E> node2 = other.head;
     while (node1 != null) {
       if (node1.data == null) {
         if (node2.data != null) {
@@ -222,10 +213,10 @@ public class LinkedList<E> {
   @Override
   public int hashCode() {
     int result = 1;
-    LinkedList node1 = this;
-    while (node1 != null) {
-      result = 31 * result + (node1.data == null ? 0 : node1.data.hashCode());
-      node1 = node1.next;
+    Node<E> node = head;
+    while (node != null) {
+      result = 31 * result + (node.data == null ? 0 : node.data.hashCode());
+      node = node.next;
     }
     result = 31 * result + size;
     return result;
@@ -239,13 +230,13 @@ public class LinkedList<E> {
     sb.append(",");
     sb.append("data={");
     if (size > 0) {
-      LinkedList node1 = this;
-      while (node1 != null) {
-        sb.append(node1.data);
-        if (node1.next != null) {
+      Node<E> node = head;
+      while (node != null) {
+        sb.append(node.data);
+        if (node.next != null) {
           sb.append(',');
         }
-        node1 = node1.next;
+        node = node.next;
       }
     }
     sb.append("}}");

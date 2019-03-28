@@ -44,30 +44,20 @@ public class SortedLinkList<E extends Comparable> extends LinkedList<E> {
     if (src1.size + src2.size == 0) {
       return result;
     }
-    LinkedList node1 = src1;
-    LinkedList node2 = src2;
+    Node node1 = src1.head;
+    Node node2 = src2.head;
     while (node1 != null || node2 != null) {
-      if (node2 == null || node2.size == 0) {
+      if (node2 == null) {
         if (node1 != null) {
-          if (node1.size > 0) {
-            result._append((Comparable) node1.data);
-          }
+          result._append((Comparable) node1.data);
           node1 = node1.next;
-        }
-        if (node2 != null) {
-          node2 = node2.next;
         }
         continue;
       }
-      if (node1 == null || node1.size == 0) {
+      if (node1 == null) {
         if (node2 != null) {
-          if (node2.size > 0) {
-            result._append((Comparable) node2.data);
-          }
+          result._append((Comparable) node2.data);
           node2 = node2.next;
-        }
-        if (node1 != null) {
-          node1 = node1.next;
         }
         continue;
       }
@@ -108,13 +98,13 @@ public class SortedLinkList<E extends Comparable> extends LinkedList<E> {
       super.append(ele);
       return;
     } else if (size == 1) {
-      if (ele.compareTo(data) <= 0) {
+      if (ele.compareTo(head.data) <= 0) {
         super.insert(0, ele);
       } else {
         super.append(ele);
       }
     } else {
-      LinkedList<E> node = this;
+      Node<E> node = head;
       int idx = 0;
       while (ele.compareTo(node.data) > 0 && node.next != null) {
         idx++;
