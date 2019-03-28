@@ -62,27 +62,27 @@ public class ArrayList<E> implements Serializable {
     return size;
   }
 
-  public void setSize(int size) {
-    if (size < 0) {
+  public void setSize(final int newSize) {
+    if (newSize < 0) {
       throw new IllegalArgumentException("List size must greater than 0");
     }
-    if (size == 0) {
+    if (newSize == 0) {
       clear();
       return;
     }
-    if (size > getCapacity()) {
-      Object[] newData = new Object[size];
-      for (int i = 0; i < this.size; i++) {
+    if (newSize > getCapacity()) {
+      Object[] newData = new Object[newSize];
+      for (int i = 0; i < size; i++) {
         newData[i] = data[i];
         data[i] = null;
       }
       data = newData;
     } else {
-      for (int i = size; i < this.size; i++) {
+      for (int i = newSize; i < size; i++) {
         data[i] = null;
       }
     }
-    this.size = size;
+    size = newSize;
   }
 
   public void clear() {
