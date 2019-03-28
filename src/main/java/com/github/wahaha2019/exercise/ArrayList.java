@@ -255,16 +255,14 @@ public class ArrayList<E> implements Serializable {
     return copy;
   }
 
-  private void writeObject(java.io.ObjectOutputStream s)
-      throws java.io.IOException {
+  private void writeObject(java.io.ObjectOutputStream s) throws java.io.IOException {
     s.defaultWriteObject();
     for (int i = 0; i < size; i++) {
       s.writeObject(data[i]);
     }
   }
 
-  private void readObject(java.io.ObjectInputStream s)
-      throws java.io.IOException, ClassNotFoundException {
+  private void readObject(java.io.ObjectInputStream s) throws java.io.IOException, ClassNotFoundException {
     s.defaultReadObject();
     if (size > 0) {
       data = new Object[size];

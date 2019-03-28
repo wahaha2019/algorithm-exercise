@@ -1,20 +1,30 @@
 package com.github.wahaha2019.exercise;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.github.wahaha2019.exercise.ArrayList.newIntSerial;
+import java.io.*;
+
+import static com.github.wahaha2019.exercise.SortedArrayList.newIntSerial;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SortedArrayTest {
 
-  @BeforeEach
-  void setUp() {
+  @Test
+  public void _clone() {
+    SortedArrayList list1 = newIntSerial(5);
+    SortedArrayList list2 = list1.clone();
+    assertEquals(list1, list2);
   }
 
-  @AfterEach
-  void tearDown() {
+  @Test
+  public void serialize() throws IOException, ClassNotFoundException {
+    SortedArrayList list1 = newIntSerial(5);
+    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    ObjectOutputStream os = new ObjectOutputStream(bos);
+    os.writeObject(list1);
+    os.close();
+    SortedArrayList list2 = (SortedArrayList) new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray())).readObject();
+    assertEquals(list1, list2);
   }
 
   @Test

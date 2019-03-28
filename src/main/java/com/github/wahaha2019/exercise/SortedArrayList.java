@@ -2,10 +2,14 @@ package com.github.wahaha2019.exercise;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
+
 /**
  * SortedArrayList is not thread safe. element can not be null.
  */
 public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
+  private static final long serialVersionUID = -4299003191451011929L;
+
   public SortedArrayList(int capacity) {
     super(capacity);
   }
@@ -97,4 +101,35 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
   public void insert(int i, E ele) {
     throw new RuntimeException("method not supported.");
   }
+
+  /**
+   * Returns a shallow copy of this <tt>ArrayList</tt> instance.  (The elements themselves are not copied.)
+   *
+   * @return a clone of this <tt>ArrayList</tt> instance
+   */
+  @Override
+  public SortedArrayList<E> clone() {
+    SortedArrayList copy = new SortedArrayList();
+    copy.size = size;
+    copy.data = Arrays.copyOf(data, size);
+    return copy;
+  }
+
+  private void writeObject(java.io.ObjectOutputStream s) throws java.io.IOException {
+    s.defaultWriteObject();
+    for (int i = 0; i < size; i++) {
+      s.writeObject(data[i]);
+    }
+  }
+
+  private void readObject(java.io.ObjectInputStream s) throws java.io.IOException, ClassNotFoundException {
+    s.defaultReadObject();
+    if (size > 0) {
+      data = new Object[size];
+      for (int i = 0; i < size; i++) {
+        data[i] = s.readObject();
+      }
+    }
+  }
+
 }
