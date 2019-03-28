@@ -69,6 +69,65 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
     return result;
   }
 
+  public static SortedArrayList merge(@NotNull final SortedArrayList[] src) {
+    long newSize = 0;
+    SortedArrayList[] source = new SortedArrayList[src.length];
+    int count = 0;
+    for (int i = 0; i < src.length; i++) {
+      if (src[i] == null) {
+        throw new IllegalArgumentException("Every source list must not be null.");
+      }
+      if (src[i].size > 0) {
+        newSize += src[i].size;
+        source[count] = src[i];
+        count++;
+      }
+    }
+    if (newSize > Integer.MAX_VALUE) {
+      throw new IllegalArgumentException("Summed size of source lists is too large.");
+    }
+    if (src.length <= 1) {
+      throw new IllegalArgumentException("Count of source lists must greater than 1");
+    }
+    source = Arrays.copyOf(source, count);
+    if (newSize == 0) {
+      return new SortedArrayList(1);
+    }
+    if (source.length == 2) {
+      return merge(source[0], source[1]);
+    }
+    SortedArrayList result = new SortedArrayList((int) newSize);
+    result.size = result.getCapacity();
+    int k = 0;
+    int[] idx = new int[src.length];
+    while (true) {
+      int i = 0;
+      Comparable minEle = null;
+      for (; i < idx.length; i++) {
+        if (idx[i] < source[i].size) {
+          minEle = source[i].get(idx[i]);
+          break;
+        }
+      }
+      if (minEle == null) {
+        break;
+      }
+      int pos = i;
+      for (int j = i; j < idx.length; j++) {
+        if (idx[j] < source[j].size) {
+          if (source[j].get(idx[j]).compareTo(minEle) < 0) {
+            minEle = source[j].get(idx[j]);
+            pos = j;
+          }
+        }
+      }
+      idx[pos]++;
+      result.data[k] = minEle;
+      k++;
+    }
+    return result;
+  }
+
   public void insert(@NotNull E ele) {
     if (size == 0) {
       super.append(ele);

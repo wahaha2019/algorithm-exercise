@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.*;
 
+import static com.github.wahaha2019.exercise.SortedArrayList.merge;
 import static com.github.wahaha2019.exercise.SortedArrayList.newIntSerial;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -45,18 +46,31 @@ class SortedArrayTest {
   }
 
   @Test
-  void merge() {
-    assertEquals(new SortedArrayList(), SortedArrayList.merge(new SortedArrayList(), new SortedArrayList()));
+  void merge2() {
+    assertEquals(new SortedArrayList(), merge(new SortedArrayList(), new SortedArrayList()));
     SortedArrayList<Integer> src1 = SortedArrayList.newIntSerial(0, 2, 5);
-    SortedArrayList<Integer> result = SortedArrayList.merge(src1, new SortedArrayList());
+    SortedArrayList<Integer> result = merge(src1, new SortedArrayList());
     System.out.println(src1);
     assertEquals(result, src1);
-    result = SortedArrayList.merge(new SortedArrayList(), src1);
+    result = merge(new SortedArrayList(), src1);
     assertEquals(result, src1);
     SortedArrayList<Integer> src2 = SortedArrayList.newIntSerial(1, 2, 5);
     System.out.println(src2);
-    result = SortedArrayList.merge(src1, src2);
+    result = merge(src1, src2);
     SortedArrayList<Integer> serial = SortedArrayList.newIntSerial(10);
+    assertEquals(result, serial);
+    assertEquals(result.hashCode(), serial.hashCode());
+  }
+
+  @Test
+  void merge3() {
+    SortedArrayList<Integer> src1 = SortedArrayList.newIntSerial(0, 3, 5);
+    SortedArrayList<Integer> src2 = SortedArrayList.newIntSerial(1, 3, 5);
+    SortedArrayList<Integer> src3 = SortedArrayList.newIntSerial(2, 3, 5);
+    System.out.println(src2);
+    SortedArrayList result = merge(new SortedArrayList[]{src1, src2, src3});
+    System.out.println(result);
+    SortedArrayList<Integer> serial = SortedArrayList.newIntSerial(15);
     assertEquals(result, serial);
     assertEquals(result.hashCode(), serial.hashCode());
   }
