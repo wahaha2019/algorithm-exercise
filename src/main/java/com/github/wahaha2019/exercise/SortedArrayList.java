@@ -3,40 +3,40 @@ package com.github.wahaha2019.exercise;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * SortedArray is not thread safe. element can not be null.
+ * SortedArrayList is not thread safe. element can not be null.
  */
-public class SortedArray<E extends Comparable> extends DynamicArray<E> {
-  public SortedArray(int capacity) {
+public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
+  public SortedArrayList(int capacity) {
     super(capacity);
   }
 
-  public SortedArray() {
+  public SortedArrayList() {
     super();
   }
 
-  static SortedArray newIntSerial(int size) {
-    SortedArray array = new SortedArray<String>(size);
-    fillIntSerial(size, array);
-    return array;
+  static SortedArrayList newIntSerial(int size) {
+    SortedArrayList aist = new SortedArrayList<String>(size);
+    fillIntSerial(size, aist);
+    return aist;
   }
 
-  static SortedArray newIntSerial(int begin, int step, int size) {
+  static SortedArrayList newIntSerial(int begin, int step, int size) {
     if (step <= 0) {
       throw new IllegalArgumentException("step must greater than 0");
     }
-    SortedArray array = new SortedArray<String>(size);
-    fillIntSerial(begin, step, size, array);
-    return array;
+    SortedArrayList aist = new SortedArrayList<String>(size);
+    fillIntSerial(begin, step, size, aist);
+    return aist;
   }
 
-  public static SortedArray merge(final SortedArray src1, final SortedArray src2) {
+  public static SortedArrayList merge(final SortedArrayList src1, final SortedArrayList src2) {
     if (src1 == null || src2 == null) {
-      throw new IllegalArgumentException("Every source array must not be null.");
+      throw new IllegalArgumentException("Every source aist must not be null.");
     }
     if (src1.size + src2.size == 0) {
-      return new SortedArray(1);
+      return new SortedArrayList(1);
     }
-    SortedArray result = new SortedArray(src1.size + src2.size);
+    SortedArrayList result = new SortedArrayList(src1.size + src2.size);
     result.size = result.getCapacity();
     int k = 0;
     for (int i = 0, j = 0; i < src1.size || j < src2.size; k++) {

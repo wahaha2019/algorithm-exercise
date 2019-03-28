@@ -5,44 +5,44 @@
 package com.github.wahaha2019.exercise;
 
 /**
- * DynamicArray is not thread safe. element can be null.
+ * ArrayList is not thread safe. element can be null.
  */
-public class DynamicArray<E> {
+public class ArrayList<E> {
   private static final int DEFAULT_CAPACITY = 256;
   private final double expendRatio = 1.5D;
   private final int expendStep = 8;
   protected int size;
   protected Object[] data;
 
-  static DynamicArray<Integer> newIntSerial(int size) {
-    DynamicArray<Integer> array = new DynamicArray<>(size);
-    fillIntSerial(size, array);
-    return array;
+  static ArrayList<Integer> newIntSerial(int size) {
+    ArrayList<Integer> list = new ArrayList<>(size);
+    fillIntSerial(size, list);
+    return list;
   }
 
-  static void fillIntSerial(int size, DynamicArray array) {
-    array.setSize(size);
+  static void fillIntSerial(int size, ArrayList list) {
+    list.setSize(size);
     for (int i = 0; i < size; i++) {
-      array.data[i] = i;
+      list.data[i] = i;
     }
   }
 
-  static void fillIntSerial(int begin, int step, int size, DynamicArray array) {
-    array.setSize(size);
+  static void fillIntSerial(int begin, int step, int size, ArrayList list) {
+    list.setSize(size);
     for (int i = 0; i < size; i++) {
-      array.data[i] = begin + i * step;
+      list.data[i] = begin + i * step;
     }
   }
 
-  public DynamicArray(int capacity) {
+  public ArrayList(int capacity) {
     if (capacity <= 0) {
-      throw new IllegalArgumentException("Array capacity must greater than 0");
+      throw new IllegalArgumentException("List capacity must greater than 0");
     }
     data = new Object[capacity];
     size = 0;
   }
 
-  public DynamicArray() {
+  public ArrayList() {
     this(DEFAULT_CAPACITY);
   }
 
@@ -60,7 +60,7 @@ public class DynamicArray<E> {
 
   public void setSize(int size) {
     if (size <= 0) {
-      throw new IllegalArgumentException("Array size must greater than 0");
+      throw new IllegalArgumentException("List size must greater than 0");
     }
     if (size > getCapacity()) {
       Object[] newData = new Object[size];
@@ -101,13 +101,13 @@ public class DynamicArray<E> {
   public void insert(int i, E ele) {
     if (size == 0) {
       if (i != 0) {
-        throw new IllegalArgumentException("Index must be 0 when insert to an empty array.");
+        throw new IllegalArgumentException("Index must be 0 when insert to an empty list.");
       }
     } else {
       checkIndex(i);
     }
     if (i == Integer.MAX_VALUE || size == Integer.MAX_VALUE) {
-      throw new IllegalArgumentException("Array size is max, can not insert any more.");
+      throw new IllegalArgumentException("List size is max, can not insert any more.");
     }
     if (size + 1 <= getCapacity()) {
       for (int j = size - 1; j >= i; j--) {
@@ -148,7 +148,7 @@ public class DynamicArray<E> {
 
   public void append(E ele) {
     if (getCapacity() == Integer.MAX_VALUE) {
-      throw new IllegalArgumentException("Array size is max, can not append any more.");
+      throw new IllegalArgumentException("List size is max, can not append any more.");
     }
     setSize(size + 1);
     data[size - 1] = ele;
@@ -186,10 +186,10 @@ public class DynamicArray<E> {
     if (obj == null) {
       return false;
     }
-    if (!(obj instanceof DynamicArray)) {
+    if (!(obj instanceof ArrayList)) {
       return false;
     }
-    DynamicArray other = (DynamicArray) obj;
+    ArrayList other = (ArrayList) obj;
     if (this.size != other.size) {
       return false;
     } else if (this.size == 0 && other.size == 0) {
@@ -220,7 +220,7 @@ public class DynamicArray<E> {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder(64);
-    sb.append("DynamicArray{size=");
+    sb.append("ArrayList{size=");
     sb.append(size);
     sb.append(",");
     sb.append("data={");

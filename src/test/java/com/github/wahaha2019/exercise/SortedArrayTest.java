@@ -4,7 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.github.wahaha2019.exercise.DynamicArray.newIntSerial;
+import static com.github.wahaha2019.exercise.ArrayList.newIntSerial;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SortedArrayTest {
@@ -19,34 +19,34 @@ class SortedArrayTest {
 
   @Test
   void insert() {
-    SortedArray<Integer> array1 = new SortedArray<Integer>(1);
+    SortedArrayList<Integer> aist1 = new SortedArrayList<Integer>(1);
     for (int i = 0; i < 10; i++) {
-      array1.insert(i);
+      aist1.insert(i);
     }
-    DynamicArray array2 = newIntSerial(10);
-    assertEquals(array1, array2);
-    assertEquals(array1.hashCode(), array2.hashCode());
-    SortedArray<Integer> array3 = new SortedArray<Integer>(1);
+    ArrayList aist2 = newIntSerial(10);
+    assertEquals(aist1, aist2);
+    assertEquals(aist1.hashCode(), aist2.hashCode());
+    SortedArrayList<Integer> aist3 = new SortedArrayList<Integer>(1);
     for (int i = 9; i >= 0; i--) {
-      array3.insert(i);
+      aist3.insert(i);
     }
-    assertEquals(array3, array2);
-    assertEquals(array3.hashCode(), array2.hashCode());
+    assertEquals(aist3, aist2);
+    assertEquals(aist3.hashCode(), aist2.hashCode());
   }
 
   @Test
   void merge() {
-    assertEquals(new SortedArray(), SortedArray.merge(new SortedArray(), new SortedArray()));
-    SortedArray<Integer> src1 = SortedArray.newIntSerial(0, 2, 5);
-    SortedArray<Integer> result = SortedArray.merge(src1, new SortedArray());
+    assertEquals(new SortedArrayList(), SortedArrayList.merge(new SortedArrayList(), new SortedArrayList()));
+    SortedArrayList<Integer> src1 = SortedArrayList.newIntSerial(0, 2, 5);
+    SortedArrayList<Integer> result = SortedArrayList.merge(src1, new SortedArrayList());
     System.out.println(src1);
     assertEquals(result, src1);
-    result = SortedArray.merge(new SortedArray(), src1);
+    result = SortedArrayList.merge(new SortedArrayList(), src1);
     assertEquals(result, src1);
-    SortedArray<Integer> src2 = SortedArray.newIntSerial(1, 2, 5);
+    SortedArrayList<Integer> src2 = SortedArrayList.newIntSerial(1, 2, 5);
     System.out.println(src2);
-    result = SortedArray.merge(src1, src2);
-    SortedArray<Integer> serial = SortedArray.newIntSerial(10);
+    result = SortedArrayList.merge(src1, src2);
+    SortedArrayList<Integer> serial = SortedArrayList.newIntSerial(10);
     assertEquals(result, serial);
     assertEquals(result.hashCode(), serial.hashCode());
   }
