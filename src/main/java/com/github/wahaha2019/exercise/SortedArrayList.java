@@ -99,11 +99,11 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
     SortedArrayList result = new SortedArrayList((int) newSize);
     result.size = result.getCapacity();
     int k = 0;
-    int[] idx = new int[src.length];
+    int[] idx = new int[count];
     while (true) {
       int i = 0;
       Comparable minEle = null;
-      for (; i < idx.length; i++) {
+      for (; i < count; i++) {
         if (idx[i] < source[i].size) {
           minEle = source[i].get(idx[i]);
           break;
@@ -113,7 +113,7 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
         break;
       }
       int pos = i;
-      for (int j = i; j < idx.length; j++) {
+      for (int j = i; j < count; j++) {
         if (idx[j] < source[j].size) {
           if (source[j].get(idx[j]).compareTo(minEle) < 0) {
             minEle = source[j].get(idx[j]);
