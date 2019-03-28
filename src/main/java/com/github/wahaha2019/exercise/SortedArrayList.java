@@ -37,7 +37,11 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
     if (src1 == null || src2 == null) {
       throw new IllegalArgumentException("Every source list must not be null.");
     }
-    if (src1.size + src2.size == 0) {
+    long newSize = src1.size + src2.size;
+    if (newSize > Integer.MAX_VALUE) {
+      throw new IllegalArgumentException("Summed size of source lists is too large.");
+    }
+    if (newSize == 0) {
       return new SortedArrayList(1);
     }
     SortedArrayList result = new SortedArrayList(src1.size + src2.size);

@@ -40,8 +40,12 @@ public class SortedLinkList<E extends Comparable> extends LinkedList<E> {
     if (src1 == null || src2 == null) {
       throw new IllegalArgumentException("Every source list must not be null.");
     }
+    long newSize = src1.size + src2.size;
+    if (newSize > Integer.MAX_VALUE) {
+      throw new IllegalArgumentException("Summed size of source lists is too large.");
+    }
     SortedLinkList result = new SortedLinkList<String>();
-    if (src1.size + src2.size == 0) {
+    if (newSize == 0) {
       return result;
     }
     Node node1 = src1.head;
