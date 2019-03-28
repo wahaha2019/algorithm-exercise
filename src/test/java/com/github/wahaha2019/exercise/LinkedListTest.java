@@ -17,6 +17,13 @@ class LinkedListTest {
   }
 
   @Test
+  public void reverse() {
+    LinkedList list = newIntSerial(5);
+    list.reverse();
+    assertEquals(list.toString(), "LinkedList{size=5,data={4,3,2,1,0}}");
+  }
+
+  @Test
   public void get() {
     LinkedList list = new LinkedList();
     assertTrue(list.isEmpty());

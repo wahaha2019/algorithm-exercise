@@ -29,6 +29,24 @@ public class LinkedList<E> {
     return list;
   }
 
+  public void reverse() {
+    if (size <= 1) {
+      return;
+    }
+    Node<E>[] data = new Node[size];
+    Node<E> node = head;
+    for (int i = 0; i < size; i++) {
+      data[i] = node;
+      node = node.next;
+    }
+    for (int i = 1; i < size; i++) {
+      data[i].next = data[i - 1];
+    }
+    tail = data[0];
+    tail.next = null;
+    head = data[size - 1];
+  }
+
   /**
    * create an one node list with a given element.
    *
