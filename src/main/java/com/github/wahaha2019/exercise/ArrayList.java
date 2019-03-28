@@ -200,7 +200,7 @@ public class ArrayList<E> implements Serializable {
     ArrayList other = (ArrayList) obj;
     if (this.size != other.size) {
       return false;
-    } else if (this.size == 0 && other.size == 0) {
+    } else if (this.size - other.size == 0) {
       return true;
     }
     for (int i = 0; i < size; i++) {

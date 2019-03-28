@@ -201,7 +201,7 @@ public class LinkedList<E> {
     LinkedList node2 = (LinkedList) obj;
     if (this.size != node2.size) {
       return false;
-    } else if (this.size == 0 && node2.size == 0) {
+    } else if (this.size - node2.size == 0) {
       return true;
     }
     LinkedList node1 = this;
