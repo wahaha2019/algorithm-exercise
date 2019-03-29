@@ -112,9 +112,6 @@ public class SortedLinkList<E extends Comparable> extends LinkedList<E> {
       return merge(source[0], source[1]);
     }
     SortedLinkList result = new SortedLinkList();
-    if (newSize == 0) {
-      return result;
-    }
     Node[] nodes = new Node[count];
     for (int i = 0; i < count; i++) {
       nodes[i] = source[i].head;
