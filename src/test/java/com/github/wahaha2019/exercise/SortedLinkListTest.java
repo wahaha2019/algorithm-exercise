@@ -20,14 +20,14 @@ class SortedLinkListTest {
 
   @Test
   void insert() {
-    SortedLinkList<Integer> list1 = new SortedLinkList<Integer>();
+    SortedLinkList<Integer> list1 = new SortedLinkList<>();
     for (int i = 0; i < 10; i++) {
       list1.insert(i);
     }
     SortedLinkList list2 = newIntSerial(10);
     assertEquals(list1, list2);
     assertEquals(list1.hashCode(), list2.hashCode());
-    SortedLinkList<Integer> list3 = new SortedLinkList<Integer>();
+    SortedLinkList<Integer> list3 = new SortedLinkList<>();
     for (int i = 9; i >= 0; i--) {
       list3.insert(i);
     }
@@ -49,6 +49,19 @@ class SortedLinkListTest {
     result = merge(src1, src2);
     System.out.println(result);
     SortedLinkList<Integer> serial = SortedLinkList.newIntSerial(10);
+    assertEquals(result, serial);
+    assertEquals(result.hashCode(), serial.hashCode());
+  }
+
+  @Test
+  void merge3() {
+    SortedLinkList<Integer> src1 = SortedLinkList.newIntSerial(0, 3, 5);
+    SortedLinkList<Integer> src2 = SortedLinkList.newIntSerial(1, 3, 5);
+    SortedLinkList<Integer> src3 = SortedLinkList.newIntSerial(2, 3, 5);
+    System.out.println(src2);
+    SortedLinkList result = SortedLinkList.merge(new SortedLinkList[]{src1, src2, src3});
+    System.out.println(result);
+    SortedLinkList<Integer> serial = SortedLinkList.newIntSerial(15);
     assertEquals(result, serial);
     assertEquals(result.hashCode(), serial.hashCode());
   }

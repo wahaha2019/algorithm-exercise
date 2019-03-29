@@ -2,6 +2,8 @@ package com.github.wahaha2019.exercise;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
+
 public class SortedLinkList<E extends Comparable> extends LinkedList<E> {
 
   /**
@@ -44,7 +46,7 @@ public class SortedLinkList<E extends Comparable> extends LinkedList<E> {
     if (newSize > Integer.MAX_VALUE) {
       throw new IllegalArgumentException("Summed size of source lists is too large.");
     }
-    SortedLinkList result = new SortedLinkList<String>();
+    SortedLinkList result = new SortedLinkList();
     if (newSize == 0) {
       return result;
     }
@@ -72,6 +74,74 @@ public class SortedLinkList<E extends Comparable> extends LinkedList<E> {
         result._append((Comparable) node2.data);
         node2 = node2.next;
       }
+    }
+    return result;
+  }
+
+  /**
+   * merge multiple SortedLinkLists into a new SortedLinkList.
+   *
+   * @param src an array of source SortedLinkLists
+   * @return new SortedLinkList
+   */
+  public static SortedLinkList merge(@NotNull final SortedLinkList src[]) {
+    long newSize = 0;
+    SortedLinkList[] source = new SortedLinkList[src.length];
+    int count = 0;
+    for (int i = 0; i < src.length; i++) {
+      if (src[i] == null) {
+        throw new IllegalArgumentException("Every source list must not be null.");
+      }
+      if (src[i].size > 0) {
+        newSize += src[i].size;
+        source[count] = src[i];
+        count++;
+      }
+    }
+    if (newSize > Integer.MAX_VALUE) {
+      throw new IllegalArgumentException("Summed size of source lists is too large.");
+    }
+    if (src.length <= 1) {
+      throw new IllegalArgumentException("Count of source lists must greater than 1");
+    }
+    source = Arrays.copyOf(source, count);
+    if (newSize == 0) {
+      return new SortedLinkList();
+    }
+    if (source.length == 2) {
+      return merge(source[0], source[1]);
+    }
+    SortedLinkList result = new SortedLinkList();
+    if (newSize == 0) {
+      return result;
+    }
+    Node[] nodes = new Node[count];
+    for (int i = 0; i < count; i++) {
+      nodes[i] = source[i].head;
+    }
+    while (true) {
+      int i = 0;
+      Comparable minEle = null;
+      for (; i < count; i++) {
+        if (nodes[i] != null) {
+          minEle = (Comparable) nodes[i].data;
+          break;
+        }
+      }
+      if (minEle == null) {
+        break;
+      }
+      int pos = i;
+      for (int j = i; j < count; j++) {
+        if (nodes[i] != null) {
+          if (minEle.compareTo(nodes[j].data) >= 0) {
+            minEle = (Comparable) nodes[j].data;
+            pos = j;
+          }
+        }
+      }
+      nodes[pos] = nodes[pos].next;
+      result._append(minEle);
     }
     return result;
   }
@@ -127,6 +197,11 @@ public class SortedLinkList<E extends Comparable> extends LinkedList<E> {
 
   private void _append(@NotNull E ele) {
     super.append(ele);
+  }
+
+  @Override
+  public E get(int idx) {
+    return (E) super.get(idx);
   }
 
   @Override
