@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 public class ArrayStack<E> {
   private transient Object[] data;
   private int size;
-  private int pos = -1;
+  private int pos;
 
   public ArrayStack(int capacity) {
     if (capacity <= 0) {
@@ -26,8 +26,8 @@ public class ArrayStack<E> {
     if (size == getCapacity()) {
       return false;
     }
-    pos++;
     data[pos] = ele;
+    pos++;
     size++;
     return true;
   }
@@ -36,8 +36,8 @@ public class ArrayStack<E> {
     if (size == 0) {
       return null;
     }
-    E ele = (E) data[pos];
     pos--;
+    E ele = (E) data[pos];
     size--;
     return ele;
   }
