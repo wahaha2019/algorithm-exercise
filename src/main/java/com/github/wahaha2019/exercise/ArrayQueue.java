@@ -8,8 +8,8 @@ public class ArrayQueue<E> {
   private transient final int expendStep = 8;
   private transient Object[] data;
   private int size;
-  private int inPos = -1;
-  private int dePos = -1;
+  private int inPos;
+  private int dePos;
 
   public ArrayQueue(int capacity) {
     if (capacity <= 0) {
@@ -30,11 +30,11 @@ public class ArrayQueue<E> {
     if (size == getCapacity()) {
       return false;
     }
+    data[inPos] = ele;
     inPos++;
     if (inPos == getCapacity()) {
       inPos = 0;
     }
-    data[inPos] = ele;
     size++;
     return true;
   }
@@ -43,11 +43,12 @@ public class ArrayQueue<E> {
     if (size == 0) {
       return null;
     }
-    size--;
+    E ele = (E) data[dePos];
     dePos++;
     if (dePos == getCapacity()) {
       dePos = 0;
     }
-    return (E) data[dePos];
+    size--;
+    return ele;
   }
 }
