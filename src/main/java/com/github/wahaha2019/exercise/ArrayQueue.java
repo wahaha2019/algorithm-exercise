@@ -13,7 +13,7 @@ public class ArrayQueue<E> {
 
   public ArrayQueue(int capacity) {
     if (capacity <= 0) {
-      throw new IllegalArgumentException("List capacity must greater than 0");
+      throw new IllegalArgumentException("Queue capacity must greater than 0");
     }
     data = new Object[capacity];
   }
