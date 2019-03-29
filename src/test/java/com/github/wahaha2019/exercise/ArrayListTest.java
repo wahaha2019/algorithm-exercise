@@ -112,7 +112,7 @@ public class ArrayListTest {
     assertEquals(list.get(3), "1");
     assertEquals(list.getSize(), 4);
     ArrayList list2 = newIntSerial(10);
-    ArrayList<Integer> list3 = new ArrayList<Integer>(10);
+    ArrayList<Integer> list3 = new ArrayList<>(10);
     list3.append(9);
     for (int i = 8; i >= 0; i--) {
       list3.insert(0, i);

@@ -9,6 +9,9 @@
 plugins {
     id 'java-library'
     id 'idea'
+    id 'pmd'
+    //id 'checkstyle'
+    id "com.github.spotbugs" version "1.7.1"
 }
 
 group 'wahaha2019.github.com'

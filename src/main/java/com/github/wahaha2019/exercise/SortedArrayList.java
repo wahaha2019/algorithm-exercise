@@ -19,7 +19,7 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
   }
 
   static SortedArrayList newIntSerial(int size) {
-    SortedArrayList list = new SortedArrayList<String>(size);
+    SortedArrayList list = new SortedArrayList(size);
     fillIntSerial(size, list);
     return list;
   }
@@ -28,7 +28,7 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
     if (step <= 0) {
       throw new IllegalArgumentException("step must greater than 0");
     }
-    SortedArrayList list = new SortedArrayList<String>(size);
+    SortedArrayList<Integer> list = new SortedArrayList<>(size);
     fillIntSerial(begin, step, size, list);
     return list;
   }

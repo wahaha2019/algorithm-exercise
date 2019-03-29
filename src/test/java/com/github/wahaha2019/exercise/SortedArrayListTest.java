@@ -30,14 +30,14 @@ class SortedArrayListTest {
 
   @Test
   void insert() {
-    SortedArrayList<Integer> list1 = new SortedArrayList<Integer>(1);
+    SortedArrayList<Integer> list1 = new SortedArrayList<>(1);
     for (int i = 0; i < 10; i++) {
       list1.insert(i);
     }
     ArrayList list2 = newIntSerial(10);
     assertEquals(list1, list2);
     assertEquals(list1.hashCode(), list2.hashCode());
-    SortedArrayList<Integer> list3 = new SortedArrayList<Integer>(1);
+    SortedArrayList<Integer> list3 = new SortedArrayList<>(1);
     for (int i = 9; i >= 0; i--) {
       list3.insert(i);
     }

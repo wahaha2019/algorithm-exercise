@@ -47,7 +47,7 @@ class LinkedListTest {
 
   @Test
   public void insert() {
-    LinkedList list = new LinkedList<String>();
+    LinkedList<String> list = new LinkedList<>();
     list.insert(0, "1");
     assertEquals(list.get(0), "1");
     assertEquals(list.getSize(), 1);
@@ -68,7 +68,7 @@ class LinkedListTest {
     assertEquals(list.get(3), "1");
     assertEquals(list.getSize(), 4);
     LinkedList list2 = newIntSerial(10);
-    LinkedList<Integer> list3 = new LinkedList<Integer>();
+    LinkedList<Integer> list3 = new LinkedList<>();
     for (int i = 9; i >= 0; i--) {
       list3.insert(0, i);
     }
