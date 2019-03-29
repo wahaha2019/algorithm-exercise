@@ -5,8 +5,6 @@ package com.github.wahaha2019.exercise;
  */
 public class LinkedList<E> {
   protected int size;
-  //  protected E data;
-//  protected LinkedList next;
   protected Node head;
   protected Node tail;
 
