@@ -58,8 +58,6 @@ public class LinkedStack<E> {
       return ele;
     }
     Node<E> newHead = head.next;
-    head.next = null;
-    head.data = null;
     head = newHead;
     size--;
     return ele;
