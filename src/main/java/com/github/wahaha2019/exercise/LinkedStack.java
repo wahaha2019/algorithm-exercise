@@ -36,12 +36,9 @@ public class LinkedStack<E> {
       return false;
     }
     Node<E> newHead = new Node(ele);
-    if (size == 0) {
-      head = newHead;
-      size++;
-      return true;
+    if (size > 0) {
+      newHead.next = head;
     }
-    newHead.next = head;
     head = newHead;
     size++;
     return true;
@@ -51,15 +48,13 @@ public class LinkedStack<E> {
     if (size == 0) {
       return null;
     }
-    E ele = (E) head.data;
-    if (size == 1) {
-      head = null;
-      size--;
-      return ele;
+    E headEle = (E) head.data;
+    Node<E> newHead = null;
+    if (size > 1) {
+      newHead = head.next;
     }
-    Node<E> newHead = head.next;
     head = newHead;
     size--;
-    return ele;
+    return headEle;
   }
 }
