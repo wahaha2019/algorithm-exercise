@@ -39,11 +39,9 @@ public class LinkedQueue<E> {
     Node<E> newTail = new Node(ele);
     if (size == 0) {
       head = newTail;
-      tail = newTail;
-      size++;
-      return true;
+    } else {
+      tail.next = newTail;
     }
-    tail.next = newTail;
     tail = newTail;
     size++;
     return true;
@@ -54,13 +52,10 @@ public class LinkedQueue<E> {
       return null;
     }
     E headEle = (E) head.data;
-    if (size == 1) {
-      head = null;
-      tail = null;
-      size--;
-      return headEle;
-    }
     Node<E> newHead = head.next;
+    if (size == 1) {
+      tail = null;
+    }
     head = newHead;
     size--;
     return headEle;
