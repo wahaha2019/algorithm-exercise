@@ -6,11 +6,9 @@ public class LinkedStack<E> {
   protected int capacity;
   protected int size;
   protected Node head;
-  protected Node tail;
 
   protected static class Node<E> {
     protected E data;
-    protected Node<E> pre;
     protected Node<E> next;
 
     public Node(E ele) {
@@ -37,23 +35,14 @@ public class LinkedStack<E> {
     if (size == capacity) {
       return false;
     }
-    Node<E> newNode = new Node(ele);
+    Node<E> newHead = new Node(ele);
     if (size == 0) {
-      head = newNode;
-      tail = newNode;
+      head = newHead;
       size++;
       return true;
     }
-    if (size == 1) {
-      tail = newNode;
-      head.next = tail;
-      tail.pre = head;
-      size++;
-      return true;
-    }
-    tail.next = newNode;
-    newNode.pre = tail;
-    tail = newNode;
+    newHead.next = head;
+    head = newHead;
     size++;
     return true;
   }
@@ -62,21 +51,16 @@ public class LinkedStack<E> {
     if (size == 0) {
       return null;
     }
-    E ele = (E) tail.data;
+    E ele = (E) head.data;
     if (size == 1) {
       head = null;
-      tail = null;
       size--;
       return ele;
     }
-    if (size == 2) {
-      head.next = null;
-      tail = head;
-      size--;
-      return ele;
-    }
-    tail.pre.next = null;
-    tail = tail.pre;
+    Node<E> newHead = head.next;
+    head.next = null;
+    head.data = null;
+    head = newHead;
     size--;
     return ele;
   }
