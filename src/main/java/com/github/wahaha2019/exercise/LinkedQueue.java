@@ -36,15 +36,15 @@ public class LinkedQueue<E> {
     if (size == capacity) {
       return false;
     }
-    Node<E> newNode = new Node(ele);
+    Node<E> newTail = new Node(ele);
     if (size == 0) {
-      head = newNode;
-      tail = newNode;
+      head = newTail;
+      tail = newTail;
       size++;
       return true;
     }
-    tail.next = newNode;
-    tail = newNode;
+    tail.next = newTail;
+    tail = newTail;
     size++;
     return true;
   }
@@ -53,20 +53,17 @@ public class LinkedQueue<E> {
     if (size == 0) {
       return null;
     }
+    E headEle = (E) head.data;
     if (size == 1) {
-      E ele = (E) head.data;
       head = null;
       tail = null;
       size--;
-      return ele;
+      return headEle;
     }
-    E ele = (E) head.data;
-    head.data = null;
     Node<E> newHead = head.next;
-    head.next = null;
     head = newHead;
     size--;
-    return ele;
+    return headEle;
   }
 
 }
