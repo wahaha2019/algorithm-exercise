@@ -10,29 +10,29 @@ class LinkedQueueTest {
   void queue() {
     LinkedQueue<Integer> queue = new LinkedQueue<>(5);
     for (int i = 0; i < 5; i++) {
-      assertTrue(queue.inqueue(i));
+      assertTrue(queue.in(i));
     }
     assertEquals(queue.getSize(), 5);
-    assertFalse(queue.inqueue(5));
+    assertFalse(queue.in(5));
     for (int i = 0; i < 5; i++) {
-      assertEquals(queue.dequeue(), i);
+      assertEquals(queue.out(), i);
     }
     assertEquals(queue.getSize(), 0);
     for (int i = 0; i < 3; i++) {
-      assertTrue(queue.inqueue(i));
+      assertTrue(queue.in(i));
     }
     assertEquals(queue.getSize(), 3);
     for (int i = 0; i < 3; i++) {
-      assertEquals(queue.dequeue(), i);
+      assertEquals(queue.out(), i);
     }
     assertEquals(queue.getSize(), 0);
     for (int i = 0; i < 5; i++) {
-      assertTrue(queue.inqueue(i));
+      assertTrue(queue.in(i));
     }
     assertEquals(queue.getSize(), 5);
-    assertFalse(queue.inqueue(5));
+    assertFalse(queue.in(5));
     for (int i = 0; i < 5; i++) {
-      assertEquals(queue.dequeue(), i);
+      assertEquals(queue.out(), i);
     }
     assertEquals(queue.getSize(), 0);
   }

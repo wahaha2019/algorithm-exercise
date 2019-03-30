@@ -32,7 +32,7 @@ public class LinkedQueue<E> {
     return size;
   }
 
-  public boolean inqueue(@NotNull E ele) {
+  public boolean in(@NotNull E ele) {
     if (size == capacity) {
       return false;
     }
@@ -47,7 +47,7 @@ public class LinkedQueue<E> {
     return true;
   }
 
-  public E dequeue() {
+  public E out() {
     if (size == 0) {
       return null;
     }
