@@ -23,4 +23,19 @@ class SorterTest {
     assertEquals(Arrays.toString(Sorter.bubble(a)), "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]");
   }
 
+  @Test
+  void insert() {
+    int[] a = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    System.out.println(Arrays.toString(Sorter.insert(a)));
+    assertEquals(Arrays.toString(Sorter.insert(a)), "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]");
+    a = new int[]{0, 1};
+    assertEquals(Arrays.toString(Sorter.insert(a)), "[0, 1]");
+    a = new int[]{1, 0};
+    assertEquals(Arrays.toString(Sorter.insert(a)), "[0, 1]");
+    a = new int[]{9, 0, 1, 2, 3, 4, 5, 6, 7, 8};
+    assertEquals(Arrays.toString(Sorter.insert(a)), "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]");
+    a = new int[]{9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+    assertEquals(Arrays.toString(Sorter.insert(a)), "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]");
+  }
+
 }
