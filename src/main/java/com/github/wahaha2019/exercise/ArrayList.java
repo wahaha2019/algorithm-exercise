@@ -13,7 +13,7 @@ import java.util.Arrays;
 public class ArrayList<E> implements Serializable {
   private static final long serialVersionUID = 5810606339357346347L;
   private static final int DEFAULT_CAPACITY = 256;
-  private transient final double expendRatio = 1.5D;
+  private transient final double expendRatio = 1.382D;
   private transient final int expendStep = 8;
   protected transient Object[] data;
   protected int size;
