@@ -5,25 +5,45 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 
 /**
- * SortedArrayList is not thread safe. element can not be null.
+ * <tt>SortedArrayList</tt> is not thread safe. element can not be null.
  */
 public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
   private static final long serialVersionUID = -4299003191451011929L;
 
+  /**
+   * Create a new <tt>SortedArrayList</tt> with the given initial capacity.
+   *
+   * @param capacity The initial capacity.
+   */
   public SortedArrayList(int capacity) {
     super(capacity);
   }
 
+  /**
+   * Create a new <tt>SortedArrayList</tt> with default capacity.
+   */
   public SortedArrayList() {
     super();
   }
 
+  /**
+   * Create a new <tt>SortedArrayList</tt> with an integer serial that start from 0, this method is used for testing.
+   * @param size The size of the new <tt>SortedArrayList</tt>.
+   * @return The new <tt>SortedArrayList</tt>.
+   */
   static SortedArrayList newIntSerial(int size) {
     SortedArrayList list = new SortedArrayList(size);
     fillIntSerial(size, list);
     return list;
   }
 
+  /**
+   * Create a new <tt>SortedArrayList</tt> with an integer serial with given params.
+   * @param begin The first value of the serial.
+   * @param step The step of the serial.
+   * @param size The size of the integer serial.
+   * @return The new <tt>SortedArrayList</tt>.
+   */
   static SortedArrayList newIntSerial(int begin, int step, int size) {
     if (step <= 0) {
       throw new IllegalArgumentException("step must greater than 0");
@@ -33,6 +53,12 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
     return list;
   }
 
+  /**
+   * Merge two <tt>SortedArrayList</tt>s into a new one.
+   * @param src1 Source <tt>SortedArrayList</tt> 1.
+   * @param src2 Source <tt>SortedArrayList</tt> 2.
+   * @return Merged <tt>SortedArrayList</tt>
+   */
   public static SortedArrayList merge(final SortedArrayList src1, final SortedArrayList src2) {
     if (src1 == null || src2 == null) {
       throw new IllegalArgumentException("Every source list must not be null.");
@@ -69,6 +95,11 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
     return result;
   }
 
+  /**
+   * Merge multiple <tt>SortedArrayList</tt>s into a new one.
+   * @param src Source <tt>SortedArrayList</tt>s.
+   * @return Merged <tt>SortedArrayList</tt>
+   */
   public static SortedArrayList merge(@NotNull final SortedArrayList[] src) {
     long newSize = 0;
     SortedArrayList[] source = new SortedArrayList[src.length];
@@ -128,6 +159,10 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
     return result;
   }
 
+  /**
+   * Insert an element into this <tt>SortedArrayList</tt>.
+   * @param ele The element.
+   */
   public void insert(@NotNull E ele) {
     if (size == 0) {
       super.append(ele);
@@ -167,7 +202,6 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
 
   /**
    * Returns a shallow copy of this <tt>ArrayList</tt> instance.  (The elements themselves are not copied.)
-   *
    * @return a clone of this <tt>ArrayList</tt> instance
    */
   @Override

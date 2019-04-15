@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 /**
- * ArrayList is not thread safe. element can be null.
+ * <tt>ArrayList</tt> is not thread safe. elements can be null.
  */
 public class ArrayList<E> implements Serializable {
   private static final long serialVersionUID = 5810606339357346347L;
@@ -18,12 +18,24 @@ public class ArrayList<E> implements Serializable {
   protected transient Object[] data;
   protected int size;
 
+  /**
+   * Create a new <tt>ArrayList</tt> with an integer serial that start from 0, this method is used for testing.
+   *
+   * @param size The size of the new <tt>ArrayList</tt>.
+   * @return A new <tt>ArrayList</tt>.
+   */
   static ArrayList<Integer> newIntSerial(int size) {
     ArrayList<Integer> list = new ArrayList<>(size);
     fillIntSerial(size, list);
     return list;
   }
 
+  /**
+   * Fill the internal array with an integer serial that start from 0
+   *
+   * @param size The size of the integer serial.
+   * @param list The <tt>ArrayList</tt> which to fill with.
+   */
   static void fillIntSerial(int size, ArrayList list) {
     list.setSize(size);
     for (int i = 0; i < size; i++) {
@@ -31,9 +43,20 @@ public class ArrayList<E> implements Serializable {
     }
   }
 
+  /**
+   * Fill the internal array with an integer serial with given params.
+   * @param begin The first value of the serial.
+   * @param step The step of the serial.
+   * @param size The size of the serial.
+   * @param list The <tt>ArrayList</tt> which to fill with.
+   */
   static void fillIntSerial(int begin, int step, int size, ArrayList list) {
     if (step <= 0) {
       throw new IllegalArgumentException("step must greater than 0");
+    }
+    long max = step * size + begin;
+    if (max > Integer.MAX_VALUE) {
+      throw new IllegalArgumentException("integer overflowed.");
     }
     list.setSize(size);
     for (int i = 0; i < size; i++) {
@@ -41,6 +64,10 @@ public class ArrayList<E> implements Serializable {
     }
   }
 
+  /**
+   * Create a new <tt>ArrayList</tt> with the given initial capacity.
+   * @param capacity The initial capacity.
+   */
   public ArrayList(int capacity) {
     if (capacity <= 0) {
       throw new IllegalArgumentException("List capacity must greater than 0");
@@ -49,22 +76,38 @@ public class ArrayList<E> implements Serializable {
     size = 0;
   }
 
+  /**
+   * Create a new <tt>ArrayList</tt> with given capacity.
+   */
   public ArrayList() {
     this(DEFAULT_CAPACITY);
   }
 
+  /**
+   * @return If the ArrayList is empty.
+   */
   public boolean isEmpty() {
     return size == 0;
   }
 
+  /**
+   * @return If the ArrayList is full.
+   */
   public boolean isFull() {
     return size == getCapacity();
   }
 
+  /**
+   * @return The elements count of this list.
+   */
   public int getSize() {
     return size;
   }
 
+  /**
+   * Trim or grow the list to given size. When grow, fill null in all new added element space.
+   * @param newSize The new Size.
+   */
   public void setSize(final int newSize) {
     if (newSize < 0) {
       throw new IllegalArgumentException("List size must greater than 0");
@@ -88,6 +131,9 @@ public class ArrayList<E> implements Serializable {
     size = newSize;
   }
 
+  /**
+   * Clear this list.
+   */
   public void clear() {
     for (int i = 0; i < size; i++) {
       data[i] = null;
@@ -95,20 +141,38 @@ public class ArrayList<E> implements Serializable {
     size = 0;
   }
 
+  /**
+   * @return The capacity of this list.
+   */
   public int getCapacity() {
     return data.length;
   }
 
+  /**
+   * Get element at given index.
+   * @param i The index.
+   * @return The element.
+   */
   public E get(int i) {
     checkIndex(i);
     return (E) data[i];
   }
 
+  /**
+   * Set element at given index.
+   * @param i The index.
+   * @param ele The element.
+   */
   public void set(int i, E ele) {
     checkIndex(i);
     data[i] = ele;
   }
 
+  /**
+   * Insert an element before given index.
+   * @param i The index.
+   * @param ele The element.
+   */
   public void insert(int i, E ele) {
     if (size == 0) {
       if (i != 0) {
@@ -148,6 +212,10 @@ public class ArrayList<E> implements Serializable {
     size++;
   }
 
+  /**
+   * Remove an element at given index.
+   * @param i The index.
+   */
   public void delete(int i) {
     checkIndex(i);
     for (int j = i; j < size - 1; j++) {
@@ -157,6 +225,10 @@ public class ArrayList<E> implements Serializable {
     size--;
   }
 
+  /**
+   * Append an element after the end of this list.
+   * @param ele The element.
+   */
   public void append(E ele) {
     if (getCapacity() == Integer.MAX_VALUE) {
       throw new IllegalArgumentException("List size is max, can not append any more.");
@@ -165,6 +237,10 @@ public class ArrayList<E> implements Serializable {
     data[size - 1] = ele;
   }
 
+  /**
+   * Delete all elements from first to given index (include).
+   * @param i The index.
+   */
   public void deleteToTop(int i) {
     checkIndex(i);
     int diff = i + 1;
@@ -178,6 +254,10 @@ public class ArrayList<E> implements Serializable {
     size = limit;
   }
 
+  /**
+   * Delete all elements from last to given index (include).
+   * @param i The index.
+   */
   public void deleteToEnd(int i) {
     checkIndex(i);
     for (int j = i; j < size; j++) {
@@ -186,6 +266,10 @@ public class ArrayList<E> implements Serializable {
     size = i;
   }
 
+  /**
+   * Check if index is valid.
+   * @param i
+   */
   private void checkIndex(int i) {
     if (i >= size || i < 0) {
       throw new ArrayIndexOutOfBoundsException("size is " + size + "; index is " + i);
@@ -247,7 +331,6 @@ public class ArrayList<E> implements Serializable {
 
   /**
    * Returns a shallow copy of this <tt>ArrayList</tt> instance.  (The elements themselves are not copied.)
-   *
    * @return a clone of this <tt>ArrayList</tt> instance
    */
   @Override
