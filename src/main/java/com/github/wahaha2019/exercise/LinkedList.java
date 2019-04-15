@@ -31,18 +31,21 @@ public class LinkedList<E> {
     if (size <= 1) {
       return;
     }
-    Node<E>[] data = new Node[size];
+    Node<E> pre = null;
     Node<E> node = head;
-    for (int i = 0; i < size; i++) {
-      data[i] = node;
-      node = node.next;
+    Node<E> next;
+    tail = head;
+    while (true) {
+      next = node.next;
+      node.next = pre;
+      if (next == null) {
+        break;
+      }
+      pre = node;
+      node = next;
     }
-    for (int i = 1; i < size; i++) {
-      data[i].next = data[i - 1];
-    }
-    tail = data[0];
-    tail.next = null;
-    head = data[size - 1];
+    head.next = null;
+    head = node;
   }
 
   /**
