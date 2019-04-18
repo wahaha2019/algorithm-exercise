@@ -145,6 +145,24 @@ class LinkedListTest {
     assertEquals(linkToString(links.get(0)), "{1,2,3,4}");
     assertEquals(linkToString(links.get(1)), "{2,3,4,5,6}");
 
+    list = LinkedList.fromArray(new Integer[]{1, 2});
+    links = list.find_ascend_list();
+    assertEquals(links.size, 1);
+    assertEquals(linkToString(links.get(0)), "{1,2}");
+
+    list = LinkedList.fromArray(new Integer[]{2, 1});
+    links = list.find_ascend_list();
+    assertEquals(links.size, 2);
+    assertEquals(linkToString(links.get(0)), "{2}");
+    assertEquals(linkToString(links.get(1)), "{1}");
+
+    list = LinkedList.fromArray(new Integer[]{3, 2, 1});
+    links = list.find_ascend_list();
+    assertEquals(links.size, 3);
+    assertEquals(linkToString(links.get(0)), "{3}");
+    assertEquals(linkToString(links.get(1)), "{2}");
+    assertEquals(linkToString(links.get(2)), "{1}");
+
     list = LinkedList.fromArray(new Integer[]{0, 1, 2});
     links = list.find_ascend_list();
     assertEquals(links.size, 1);
@@ -188,6 +206,25 @@ class LinkedListTest {
     assertEquals(linkToString(links.get(1)), "{6}");
     assertEquals(linkToString(links.get(2)), "{5}");
     assertEquals(linkToString(links.get(3)), "{3}");
+
+    list = LinkedList.fromArray(new Integer[]{1, 2, 7, 6, 5, 4, 3, 8, 9});
+    links = list.find_ascend_list();
+    assertEquals(links.size, 5);
+    assertEquals(linkToString(links.get(0)), "{1,2,7}");
+    assertEquals(linkToString(links.get(1)), "{6}");
+    assertEquals(linkToString(links.get(2)), "{5}");
+    assertEquals(linkToString(links.get(3)), "{4}");
+    assertEquals(linkToString(links.get(4)), "{3,8,9}");
+
+    list = LinkedList.fromArray(new Integer[]{8, 6, 5, 4, 7, 3, 2, 1});
+    assertEquals(links.size, 7);
+    assertEquals(linkToString(links.get(0)), "{8}");
+    assertEquals(linkToString(links.get(1)), "{6}");
+    assertEquals(linkToString(links.get(2)), "{5}");
+    assertEquals(linkToString(links.get(3)), "{4,7}");
+    assertEquals(linkToString(links.get(4)), "{3}");
+    assertEquals(linkToString(links.get(5)), "{2}");
+    assertEquals(linkToString(links.get(6)), "{1}");
   }
 
   String linkToString(LinkedList.Node head) {
@@ -227,5 +264,12 @@ class LinkedListTest {
 
     list = LinkedList.fromArray(new Integer[]{4, 3, 2, 1});
     assertEquals(list.mergeSort().toString(), "LinkedList{size=4,data={1,2,3,4}}");
+
+    list = LinkedList.fromArray(new Integer[]{6, 5, 4, 7, 3, 2, 1});
+    assertEquals(list.mergeSort().toString(), "LinkedList{size=7,data={1,2,3,4,5,6,7}}");
+
+    list = LinkedList.fromArray(new Integer[]{4, 2, 1, 3});
+    assertEquals(list.mergeSort().toString(), "LinkedList{size=4,data={1,2,3,4}}");
+
   }
 }

@@ -107,43 +107,51 @@ public class LinkedList<E> {
 
   public ArrayList<Node> find_ascend_list() {
     final ArrayList<Node> ascend_list = new ArrayList<>();
-    Node ascend_head = head;
-    Node pre = head;
+    Node ascend_head = null;
+    Node pre;
     Node node = head;
     Node next = node.next;
     int cmp = ((Comparable) node.data).compareTo(next.data);
-    node = next;
-    boolean 持续逆序 = false;
+    boolean double_descend = false;
     boolean is_ascend = cmp <= 0;
+    if (is_ascend) {
+      ascend_head = node;
+    } else {
+      double_descend = true;
+    }
+    pre = node;
+    node = next;
     for (int i = 1; i < size - 1; i++) {
       next = node.next;
       cmp = ((Comparable) node.data).compareTo(next.data);
       if (is_ascend) {
-        if (持续逆序) {
-          持续逆序 = false;
+        if (double_descend) {
+          double_descend = false;
         }
-        if (cmp > 0) {  //有序变逆序
+        if (cmp > 0) {  //ascend to descend
           is_ascend = false;
+          node.next = null;
           ascend_list.append(ascend_head);
         }
       } else {
-        if (cmp <= 0) { //逆序变有序
-          if (持续逆序) {
-            持续逆序 = false;
-          }
+        if (cmp <= 0) { //descend to ascend
           is_ascend = true;
           pre.next = null;
-          if (i == 1) {
+          if (double_descend) {
             ascend_list.append(pre);
           }
           ascend_head = node;
-        } else { //持续逆序
-          if (!持续逆序) {
-            持续逆序 = true;
+          if (double_descend) {
+            double_descend = false;
           }
+        } else { //double descend
           pre.next = null;
-          ascend_list.append(pre);
-          ascend_head = node;
+          if (double_descend) {
+            ascend_list.append(pre);
+          }
+          if (!double_descend) {
+            double_descend = true;
+          }
         }
       }
       pre = node;
@@ -152,8 +160,8 @@ public class LinkedList<E> {
     if (is_ascend) {
       ascend_list.append(ascend_head);
     } else {
-      pre.next = null;
-      if (持续逆序) {
+      if (double_descend) {
+        pre.next = null;
         ascend_list.append(pre);
       }
       ascend_list.append(tail);
