@@ -47,15 +47,16 @@ public class LinkedList<E> {
     } else if (size >= 3) {
       ArrayList<Node> sorted = find_ascend_list();
       if (sorted.size > 1) {
-        for (int i = 0; i < sorted.size - 1; i++) {
-          merge(sorted.get(i), sorted.get(i + 1));
+        for (int i = 0; i < sorted.size - 2; i++) {
+          merge(sorted.get(i), sorted.get(i + 1), false);
         }
+        merge(sorted.get(sorted.size - 2), sorted.get(sorted.size - 1), true);
       }
     }
     return (LinkedList<Comparable>) this;
   }
 
-  private void merge(final Node head1, final Node head2) {
+  private void merge(final Node head1, final Node head2, boolean findTail) {
     Node node1 = head1;
     Node node2 = head2;
     Node node;
@@ -79,23 +80,27 @@ public class LinkedList<E> {
     this.head = head;
     if (node1 != null) {
       tail.next = node1;
-      while (node1 != null) {
-        if (node1.next == null) {
-          this.tail = node1;
+      if (findTail) {
+        while (node1 != null) {
+          if (node1.next == null) {
+            this.tail = node1;
+            break;
+          }
+          node1 = node1.next;
         }
-        node1 = node1.next;
-
       }
       return;
     }
     if (node2 != null) {
       tail.next = node2;
-      while (node2 != null) {
-        if (node2.next == null) {
-          this.tail = node2;
+      if (findTail) {
+        while (node2 != null) {
+          if (node2.next == null) {
+            this.tail = node2;
+            break;
+          }
+          node2 = node2.next;
         }
-        node2 = node2.next;
-
       }
     }
   }
