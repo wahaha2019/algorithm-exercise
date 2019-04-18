@@ -49,7 +49,9 @@ public class LinkedList<E> {
       if (sorted.size > 1) {
         for (int i = 0; i < sorted.size - 2; i++) {
           merge(sorted.get(i), sorted.get(i + 1), false);
+          sorted.set(i + 1, head);
         }
+        sorted.set(sorted.size - 2, head);
         merge(sorted.get(sorted.size - 2), sorted.get(sorted.size - 1), true);
       }
     }
