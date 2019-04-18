@@ -27,6 +27,135 @@ public class LinkedList<E> {
     return list;
   }
 
+  static LinkedList<Comparable> fromArray(Comparable[] array) {
+    LinkedList<Comparable> list = new LinkedList<>();
+    for (int i = 0; i < array.length; i++) {
+      list.append(array[i]);
+    }
+    return list;
+  }
+
+  public LinkedList<Comparable> mergeSort() {
+    if (size == 2) {
+      Node node = head;
+      Node next = node.next;
+      int cmp = ((Comparable) node.data).compareTo(next.data);
+      if (cmp > 0) {
+        reverse();
+      }
+      return (LinkedList<Comparable>) this;
+    } else if (size >= 3) {
+      ArrayList<Node> sorted = find_ascend_list();
+      if (sorted.size > 1) {
+        for (int i = 0; i < sorted.size - 1; i++) {
+          merge(sorted.get(i), sorted.get(i + 1));
+        }
+      }
+    }
+    return (LinkedList<Comparable>) this;
+  }
+
+  private void merge(final Node head1, final Node head2) {
+    Node node1 = head1;
+    Node node2 = head2;
+    Node node;
+    Node head = null;
+    Node tail = null;
+    while (node1 != null && node2 != null) {
+      if (((Comparable) node1.data).compareTo(node2.data) <= 0) {
+        node = node1;
+        node1 = node1.next;
+      } else {
+        node = node2;
+        node2 = node2.next;
+      }
+      if (head == null) {
+        head = node;
+      } else {
+        tail.next = node;
+      }
+      tail = node;
+    }
+    this.head = head;
+    if (node1 != null) {
+      tail.next = node1;
+      while (node1 != null) {
+        if (node1.next == null) {
+          this.tail = node1;
+        }
+        node1 = node1.next;
+
+      }
+      return;
+    }
+    if (node2 != null) {
+      tail.next = node2;
+      while (node2 != null) {
+        if (node2.next == null) {
+          this.tail = node2;
+        }
+        node2 = node2.next;
+
+      }
+    }
+  }
+
+  public ArrayList<Node> find_ascend_list() {
+    final ArrayList<Node> ascend_list = new ArrayList<>();
+    Node ascend_head = head;
+    Node pre = head;
+    Node node = head;
+    Node next = node.next;
+    int cmp = ((Comparable) node.data).compareTo(next.data);
+    node = next;
+    boolean 持续逆序 = false;
+    boolean is_ascend = cmp <= 0;
+    for (int i = 1; i < size - 1; i++) {
+      next = node.next;
+      cmp = ((Comparable) node.data).compareTo(next.data);
+      if (is_ascend) {
+        if (持续逆序) {
+          持续逆序 = false;
+        }
+        if (cmp > 0) {  //有序变逆序
+          is_ascend = false;
+          ascend_list.append(ascend_head);
+        }
+      } else {
+        if (cmp <= 0) { //逆序变有序
+          if (持续逆序) {
+            持续逆序 = false;
+          }
+          is_ascend = true;
+          pre.next = null;
+          if (i == 1) {
+            ascend_list.append(pre);
+          }
+          ascend_head = node;
+        } else { //持续逆序
+          if (!持续逆序) {
+            持续逆序 = true;
+          }
+          pre.next = null;
+          ascend_list.append(pre);
+          ascend_head = node;
+        }
+      }
+      pre = node;
+      node = next;
+    }
+    if (is_ascend) {
+      ascend_list.append(ascend_head);
+    } else {
+      pre.next = null;
+      if (持续逆序) {
+        ascend_list.append(pre);
+      }
+      ascend_list.append(tail);
+    }
+    return ascend_list;
+  }
+
   public void reverse() {
     if (size <= 1) {
       return;
