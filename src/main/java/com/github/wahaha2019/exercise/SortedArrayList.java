@@ -95,11 +95,11 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
         return -1;
       }
       int left_size = size / 2;
-      int right_size = size - left_size;
       final int left_search = binarySearch(ele, start, left_size);
       if (left_search >= 0) {
         return left_search;
       } else {
+        int right_size = size - left_size;
         return binarySearch(ele, start + left_size, right_size);
       }
     }
