@@ -74,4 +74,99 @@ class SortedArrayListTest {
     assertEquals(result, serial);
     assertEquals(result.hashCode(), serial.hashCode());
   }
+
+  @Test
+  void bsearch() {
+    SortedArrayList<Integer> list = new SortedArrayList<>();
+    assertEquals(list.binarySearch(0), -1);
+
+    list = SortedArrayList.fromArray(new Integer[]{1, 2, 3});
+    assertEquals(list.binarySearch(1), 0);
+    assertEquals(list.binarySearch(2), 1);
+    assertEquals(list.binarySearch(3), 2);
+    assertEquals(list.binarySearch(0), -1);
+    assertEquals(list.binarySearch(4), -1);
+
+    list = SortedArrayList.fromArray(new Integer[]{1, 2, 3, 4});
+    assertEquals(list.binarySearch(1), 0);
+    assertEquals(list.binarySearch(2), 1);
+    assertEquals(list.binarySearch(3), 2);
+    assertEquals(list.binarySearch(4), 3);
+    assertEquals(list.binarySearch(0), -1);
+    assertEquals(list.binarySearch(5), -1);
+
+    list = SortedArrayList.fromArray(new Integer[]{1, 2, 3, 4, 5});
+    assertEquals(list.binarySearch(1), 0);
+    assertEquals(list.binarySearch(2), 1);
+    assertEquals(list.binarySearch(3), 2);
+    assertEquals(list.binarySearch(4), 3);
+    assertEquals(list.binarySearch(5), 4);
+    assertEquals(list.binarySearch(0), -1);
+    assertEquals(list.binarySearch(6), -1);
+
+    list = SortedArrayList.fromArray(new Integer[]{1, 1, 1});
+    assertEquals(list.binarySearch(1), 0);
+    assertEquals(list.binarySearch(0), -1);
+    assertEquals(list.binarySearch(2), -1);
+
+    list = SortedArrayList.fromArray(new Integer[]{1, 2, 2});
+    assertEquals(list.binarySearch(1), 0);
+    assertEquals(list.binarySearch(2), 1);
+    assertEquals(list.binarySearch(0), -1);
+    assertEquals(list.binarySearch(3), -1);
+
+    list = SortedArrayList.fromArray(new Integer[]{1, 2, 2, 2});
+    assertEquals(list.binarySearch(1), 0);
+    assertEquals(list.binarySearch(2), 1);
+    assertEquals(list.binarySearch(0), -1);
+    assertEquals(list.binarySearch(3), -1);
+
+    list = SortedArrayList.fromArray(new Integer[]{1, 2, 2, 2, 2});
+    assertEquals(list.binarySearch(1), 0);
+    assertEquals(list.binarySearch(2), 1);
+    assertEquals(list.binarySearch(0), -1);
+    assertEquals(list.binarySearch(3), -1);
+
+    list = SortedArrayList.fromArray(new Integer[]{1, 1, 2, 2, 2});
+    assertEquals(list.binarySearch(1), 0);
+    assertEquals(list.binarySearch(2), 2);
+    assertEquals(list.binarySearch(0), -1);
+    assertEquals(list.binarySearch(3), -1);
+
+    list = SortedArrayList.fromArray(new Integer[]{1, 1, 2, 2, 2, 2});
+    assertEquals(list.binarySearch(1), 0);
+    assertEquals(list.binarySearch(2), 2);
+    assertEquals(list.binarySearch(0), -1);
+    assertEquals(list.binarySearch(3), -1);
+
+    list = SortedArrayList.fromArray(new Integer[]{1, 1, 2, 2, 2, 2, 2});
+    assertEquals(list.binarySearch(1), 0);
+    assertEquals(list.binarySearch(2), 2);
+    assertEquals(list.binarySearch(0), -1);
+    assertEquals(list.binarySearch(3), -1);
+
+    list = SortedArrayList.fromArray(new Integer[]{1, 1, 1, 2, 2, 2});
+    assertEquals(list.binarySearch(1), 0);
+    assertEquals(list.binarySearch(2), 3);
+    assertEquals(list.binarySearch(0), -1);
+    assertEquals(list.binarySearch(3), -1);
+
+    list = SortedArrayList.fromArray(new Integer[]{1, 1, 1, 2, 2, 2, 2});
+    assertEquals(list.binarySearch(1), 0);
+    assertEquals(list.binarySearch(2), 3);
+    assertEquals(list.binarySearch(0), -1);
+    assertEquals(list.binarySearch(3), -1);
+
+    list = SortedArrayList.fromArray(new Integer[]{1, 1, 1, 2, 2, 2, 2, 2});
+    assertEquals(list.binarySearch(1), 0);
+    assertEquals(list.binarySearch(2), 3);
+    assertEquals(list.binarySearch(0), -1);
+    assertEquals(list.binarySearch(3), -1);
+
+    list = SortedArrayList.fromArray(new Integer[]{1, 1, 1, 2, 2, 2, 2, 2, 2});
+    assertEquals(list.binarySearch(1), 0);
+    assertEquals(list.binarySearch(2), 3);
+    assertEquals(list.binarySearch(0), -1);
+    assertEquals(list.binarySearch(3), -1);
+  }
 }

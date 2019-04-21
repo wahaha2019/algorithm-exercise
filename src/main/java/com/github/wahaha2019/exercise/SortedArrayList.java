@@ -27,7 +27,22 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
   }
 
   /**
+   * Create a new <tt>SortedArrayList</tt> from the given array.
+   *
+   * @param array The input array.
+   * @return The new <tt>SortedArrayList</tt>
+   */
+  static SortedArrayList fromArray(final Comparable[] array) {
+    SortedArrayList<Comparable> list = new SortedArrayList<>(array.length);
+    for (int i = 0; i < array.length; i++) {
+      list.insert(array[i]);
+    }
+    return list;
+  }
+
+  /**
    * Create a new <tt>SortedArrayList</tt> with an integer serial that start from 0, this method is used for testing.
+   *
    * @param size The size of the new <tt>SortedArrayList</tt>.
    * @return The new <tt>SortedArrayList</tt>.
    */
@@ -39,9 +54,10 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
 
   /**
    * Create a new <tt>SortedArrayList</tt> with an integer serial with given params.
+   *
    * @param begin The first value of the serial.
-   * @param step The step of the serial.
-   * @param size The size of the integer serial.
+   * @param step  The step of the serial.
+   * @param size  The size of the integer serial.
    * @return The new <tt>SortedArrayList</tt>.
    */
   static SortedArrayList newIntSerial(int begin, int step, int size) {
@@ -54,7 +70,44 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
   }
 
   /**
+   * Find the index of the first element that equals the given element.
+   *
+   * @param ele The element to be searched.
+   * @return The index of the first element that equals the given element, if not found then -1
+   */
+  public int binarySearch(final Comparable ele) {
+    return binarySearch(ele, 0, size);
+  }
+
+  private int binarySearch(final Comparable ele, final int start, final int size) {
+    if (size <= 3) {
+      for (int i = start; i < start + size; i++) {
+        final int cmp = get(i).compareTo(ele);
+        if (cmp == 0) {
+          return i;
+        } else if (cmp > 0) {
+          break;
+        }
+      }
+      return -1;
+    } else {
+      if (get(start + size - 1).compareTo(ele) < 0) {
+        return -1;
+      }
+      int left_size = size / 2;
+      int right_size = size - left_size;
+      final int left_search = binarySearch(ele, start, left_size);
+      if (left_search >= 0) {
+        return left_search;
+      } else {
+        return binarySearch(ele, start + left_size, right_size);
+      }
+    }
+  }
+
+  /**
    * Merge two <tt>SortedArrayList</tt>s into a new one.
+   *
    * @param src1 Source <tt>SortedArrayList</tt> 1.
    * @param src2 Source <tt>SortedArrayList</tt> 2.
    * @return Merged <tt>SortedArrayList</tt>
@@ -97,6 +150,7 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
 
   /**
    * Merge multiple <tt>SortedArrayList</tt>s into a new one.
+   *
    * @param src Source <tt>SortedArrayList</tt>s.
    * @return Merged <tt>SortedArrayList</tt>
    */
@@ -161,6 +215,7 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
 
   /**
    * Insert an element into this <tt>SortedArrayList</tt>.
+   *
    * @param ele The element.
    */
   public void insert(@NotNull E ele) {
@@ -202,6 +257,7 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
 
   /**
    * Returns a shallow copy of this <tt>ArrayList</tt> instance.  (The elements themselves are not copied.)
+   *
    * @return a clone of this <tt>ArrayList</tt> instance
    */
   @Override
