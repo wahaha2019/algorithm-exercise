@@ -252,21 +252,16 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
    * @param ele The element.
    */
   public void insert(@NotNull E ele) {
-    if (size == 0) {
-      super.append(ele);
-      return;
-    }
-    for (int i = size - 1; i >= 0; i--) {
-      if (ele.compareTo(data[i]) >= 0) {
-        if (i == size - 1) {
-          super.append(ele);
-        } else {
-          super.insert(i + 1, ele);
-        }
-        return;
+    int i = binarySearchLastLessEquals(ele);
+    if (i == -1) {
+      super.insert(0, ele);
+    } else {
+      if (i == size - 1) {
+        super.append(ele);
+      } else {
+        super.insert(i + 1, ele);
       }
     }
-    super.insert(0, ele);
   }
 
   @Override
