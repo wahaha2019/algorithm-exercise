@@ -91,7 +91,7 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
       if (get(start + size - 1).compareTo(ele) <= 0) {
         return start + size - 1;
       }
-      int right_size = size / 2;
+      int right_size = size >>> 1;
       int left_size = size - right_size;
       final int right_search = binarySearchLastLessEquals(ele, start + left_size, right_size);
       if (right_search >= 0) {
@@ -127,7 +127,7 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
       if (get(start + size - 1).compareTo(ele) < 0) {
         return -1;
       }
-      int left_size = size / 2;
+      int left_size = size >>> 1;
       final int left_search = binarySearch(ele, start, left_size);
       if (left_search >= 0) {
         return left_search;
