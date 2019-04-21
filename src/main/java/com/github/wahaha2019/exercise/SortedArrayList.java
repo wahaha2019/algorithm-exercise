@@ -70,6 +70,39 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
   }
 
   /**
+   * Find the index of the last element that less than or equals the given element.
+   *
+   * @param ele The element to be searched.
+   * @return The index of the last element that less than or equals the given element, if not found then -1
+   */
+  public int binarySearchLastLessEquals(final Comparable ele) {
+    return binarySearchLastLessEquals(ele, 0, size);
+  }
+
+  private int binarySearchLastLessEquals(final Comparable ele, final int start, final int size) {
+    if (size <= 3) {
+      for (int i = start + size - 1; i >= start; i--) {
+        if (get(i).compareTo(ele) <= 0) {
+          return i;
+        }
+      }
+      return -1;
+    } else {
+      if (get(start + size - 1).compareTo(ele) <= 0) {
+        return start + size - 1;
+      }
+      int right_size = size / 2;
+      int left_size = size - right_size;
+      final int right_search = binarySearchLastLessEquals(ele, start + left_size, right_size);
+      if (right_search >= 0) {
+        return right_search;
+      } else {
+        return binarySearchLastLessEquals(ele, start, left_size);
+      }
+    }
+  }
+
+  /**
    * Find the index of the first element that equals the given element.
    *
    * @param ele The element to be searched.
