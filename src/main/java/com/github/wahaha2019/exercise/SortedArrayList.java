@@ -223,13 +223,17 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
       super.append(ele);
       return;
     }
-    for (int i = 0; i < size; i++) {
-      if (ele.compareTo(data[i]) <= 0) {
-        super.insert(i, ele);
+    for (int i = size - 1; i >= 0; i--) {
+      if (ele.compareTo(data[i]) >= 0) {
+        if (i == size - 1) {
+          super.append(ele);
+        } else {
+          super.insert(i + 1, ele);
+        }
         return;
       }
     }
-    super.append(ele);
+    super.insert(0, ele);
   }
 
   @Override
