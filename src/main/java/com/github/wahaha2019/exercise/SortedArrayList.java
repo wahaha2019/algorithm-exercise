@@ -103,7 +103,38 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
   }
 
   /**
-   * Find the index of the first element that equals the given element.
+   * Find the index of the first element that equals the given element, via loop method.
+   *
+   * @param ele The element to be searched.
+   * @return The index of the first element that equals the given element, if not found then -1
+   */
+  public int binarySearchLoop(final Comparable ele) {
+    int start = 0;
+    int size = this.size;
+    while (size > 3) {
+      int left_size = size >>> 1;
+      int right_size = size - left_size;
+      int cmp = get(start + left_size - 1).compareTo(ele);
+      if (cmp < 0) {
+        start = start + left_size;
+        size = right_size;
+      } else {
+        size = left_size;
+      }
+    }
+    for (int i = start; i < start + size; i++) {
+      final int cmp = get(i).compareTo(ele);
+      if (cmp == 0) {
+        return i;
+      } else if (cmp > 0) {
+        break;
+      }
+    }
+    return -1;
+  }
+
+  /**
+   * Find the index of the first element that equals the given element, via recursive method.
    *
    * @param ele The element to be searched.
    * @return The index of the first element that equals the given element, if not found then -1
