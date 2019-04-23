@@ -109,6 +109,15 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
    * @return The index of the last element that less than or equals the given element, if not found then -1
    */
   public int binarySearchLastLessEqualsLoop(final Comparable ele) {
+    if (this.size > 3) {
+      if (get(this.size - 1).compareTo(ele) <= 0) {
+        return this.size - 1;
+      } else {
+        if (get(0).compareTo(ele) > 0) {
+          return -1;
+        }
+      }
+    }
     int start = 0;
     int size = this.size;
     while (size > 3) {
@@ -137,6 +146,18 @@ public class SortedArrayList<E extends Comparable> extends ArrayList<E> {
    * @return The index of the first element that equals the given element, if not found then -1
    */
   public int binarySearchLoop(final Comparable ele) {
+    if (this.size > 3) {
+      if (get(this.size - 1).compareTo(ele) < 0) {
+        return -1;
+      } else {
+        final int cmp = get(0).compareTo(ele);
+        if (cmp > 0) {
+          return -1;
+        } else if (cmp == 0) {
+          return 0;
+        }
+      }
+    }
     int start = 0;
     int size = this.size;
     while (size > 3) {
